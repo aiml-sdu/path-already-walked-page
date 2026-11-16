@@ -241,9 +241,56 @@ pre.bib{background:var(--surface);border:1px solid var(--rule);border-radius:6px
 footer{padding-block:56px 48px;color:var(--muted);font-size:.84rem;border-top:1px solid var(--rule);margin-top:64px}
 ul.limits{padding-left:1.1rem;margin:0}
 ul.limits li{margin-bottom:8px}
+
+/* ---- editorial layer: long-read column, display serif, full-bleed figure bands, margin contents ---- */
+:root{--col:680px;--wide:1120px;--toc-w:248px}
+body{font-size:17px;line-height:1.72}
+p{margin:0 0 1.15rem}
+section{padding-block:clamp(72px,9vw,128px) 0}
+h1,h2{font-weight:400}
+h2{font-size:clamp(1.8rem,1.3rem + 1.6vw,2.55rem);line-height:1.12;letter-spacing:-.018em;margin:0 0 1rem}
+h3{font-weight:500}
+header.hero{padding-block:clamp(56px,9vw,112px) 24px}
+.band{background:var(--band);box-shadow:0 0 0 100vmax var(--band);clip-path:inset(0 -100vmax);padding-block:clamp(28px,4.5vw,56px);margin-block:clamp(28px,4vw,44px) 0}
+.band + *{margin-top:clamp(28px,4vw,44px)}
+figure.band{margin-inline:auto}
+figcaption{font-size:.9rem;line-height:1.55;color:var(--ink2);max-width:var(--col);margin:16px auto 0}
+figcaption b{color:var(--ink)}
+.toc{display:none}
+@media (min-width:1280px){
+  body{padding-left:calc(var(--toc-w) + 40px)}
+  nav.top{margin-left:calc(-1*(var(--toc-w) + 40px));padding-left:var(--toc-w)}
+  nav.top .in a:not(.brand){display:none}
+  .toc{display:flex;flex-direction:column;gap:22px;position:fixed;z-index:6;inset:0 auto 0 0;width:var(--toc-w);padding:88px 28px 32px;
+    background:var(--bg);border-right:1px solid var(--rule);overflow-y:auto}
+  .toc .t{font:400 1.12rem/1.25 var(--f-display);color:var(--ink);text-decoration:none}
+  .toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .toc ol a{display:block;padding:6px 0 6px 14px;border-left:1px solid var(--rule);color:var(--muted);text-decoration:none;font:400 .86rem/1.35 var(--f-body)}
+  .toc ol a:hover{color:var(--ink)}
+  .toc ol a.on{color:var(--ink);border-left:2px solid var(--toc-accent);padding-left:13px;font-weight:500}
+  .toc .links{display:flex;flex-direction:column;gap:6px;font:.84rem var(--f-body)}
+  .toc .links a{color:var(--ink2);text-decoration:none}
+  .toc .links a:hover{color:var(--toc-accent)}
+  .toc .links span{color:var(--muted)}
+}
+
+:root{--bg:#FFFFFF;--band:#F4F5F7;--toc-accent:var(--accent)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111316;--surface:#1A1D21;--band:#16191D}}
+:root[data-theme="dark"]{--bg:#111316;--surface:#1A1D21;--band:#16191D}
+h1{font-size:clamp(2.7rem,1.5rem + 4.6vw,5rem);line-height:1;letter-spacing:-.03em}
+.sub{font-size:clamp(1.2rem,1rem + .8vw,1.6rem);max-width:30ch}
+.tldr{border:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);border-radius:0;background:transparent;padding:22px 0}
+.authors{border-top:1px solid var(--rule);border-bottom:0}
+.panel{box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.herogrid{gap:clamp(32px,5vw,72px)}
 </style>
 </head>
 <body>
+<aside class="toc" aria-label="Contents">
+  <a class="t" href="#top">A Path Already Walked</a>
+  <nav aria-label="Contents"><ol><li><a href="#abstract">Abstract</a></li><li><a href="#contract">The contract</a></li><li><a href="#parallel">Why the analogy</a></li><li><a href="#map">Primitive map</a></li><li><a href="#translations">Translations</a></li><li><a href="#nulls">Choosing a null</a></li><li><a href="#proxy">EC proxy</a></li><li><a href="#worked">GPT-2 small test</a></li><li><a href="#limits">Limits</a></li><li><a href="#cite">Cite</a></li></ol></nav>
+  <div class="links"><a href="https://openreview.net/forum?id=dSfjkJB3bQ" target="_blank" rel="noopener">OpenReview ↗</a><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF ↗</a><a href="https://github.com/aiml-sdu/path-already-walked" target="_blank" rel="noopener">Code ↗</a><span>arXiv · coming soon</span></div>
+</aside>
 <nav class="top" aria-label="Sections"><div class="in">
   <a class="brand" href="#top">A Path Already Walked</a>
   <a href="#contract">Contract</a><a href="#map">Map</a><a href="#translations">Translations</a><a href="#nulls">Nulls</a><a href="#proxy">EC proxy</a><a href="#worked">GPT-2 test</a><a href="#cite">Cite</a>
@@ -296,7 +343,7 @@ ul.limits li{margin-bottom:8px}
     <h2>Declare the graph before you measure it</h2>
     <p>A transformer induces many possible graphs. Nodes can be neurons, heads, SAE features or blocks; edges can be weights, activation correlations, patching effects or Jacobians; and every choice of threshold, symmetrisation and prompt set can change the answer. The contract fixes those choices first, then asks whether the statistic beats a null that keeps the architecture, and whether it predicts held-out behaviour.</p>
   </div>
-  <figure class="wide">
+  <figure class="wide band">
     <div class="panel">
       <div class="pipe"><svg id="pipe" viewBox="0 0 980 210" role="img" aria-label="The contract as a pipeline: transformer, declared graph, null ensemble, statistic against the null, behavioural target."></svg></div>
       <div class="decl">
@@ -440,7 +487,7 @@ ul.limits li{margin-bottom:8px}
     </div>
   </div>
 
-  <figure class="wide">
+  <figure class="wide band">
     <div class="panel gx">
       <div class="canvas"><svg id="graph" viewBox="0 0 640 430" role="img" aria-label="The thresholded effective-connectivity graph over GPT-2 small's 144 attention heads, arranged by layer. Most retained edges leave layers 0 and 1."></svg></div>
       <div class="side">
@@ -794,6 +841,19 @@ $('#copybib').addEventListener('click', ()=>{ const t=$('#bib').textContent, b=$
   const done=()=>{ b.textContent='Copied'; setTimeout(()=>b.textContent='Copy',1500); };
   const sel=()=>{ const r=document.createRange(); r.selectNodeContents($('#bib')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected, press ⌘C'; setTimeout(()=>b.textContent='Copy',2500); };
   try { navigator.clipboard.writeText(t).then(done, sel); } catch(e){ sel(); } });
+})();
+</script>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc ol a'));
+  var secs=links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  var tick=false;
+  function update(){ tick=false; var line=window.innerHeight*0.3, cur=0;
+    for(var i=0;i<secs.length;i++){ if(secs[i] && secs[i].getBoundingClientRect().top<=line) cur=i; }
+    links.forEach(function(a,i){ a.classList.toggle('on', i===cur); }); }
+  window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(update); } },{passive:true});
+  update();
 })();
 </script>
 </body>
