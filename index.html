@@ -75,8 +75,8 @@ h1{font-size:clamp(2.3rem,1.6rem + 3.4vw,4rem);line-height:1.02;margin:0 0 14px;
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:8px;font:500 .86rem var(--f-mono);padding:9px 14px;border-radius:4px;border:1px solid var(--rule);color:var(--ink);background:var(--surface);text-decoration:none;cursor:pointer}
 .btn:hover{border-color:var(--accent);color:var(--accent)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.primary:hover{filter:brightness(1.08);color:#fff}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.btn.primary:hover{filter:brightness(1.08);color:var(--surface)}
 .btn.off{color:var(--muted);cursor:default;border-style:dashed}
 .btn.off:hover{border-color:var(--rule);color:var(--muted)}
 .btn small{font-size:.7rem;color:var(--muted)}
@@ -122,7 +122,7 @@ figcaption b{font:500 .72rem var(--f-mono);letter-spacing:.08em;text-transform:u
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{font:500 .8rem var(--f-mono);padding:6px 10px;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--ink2);cursor:pointer}
 .chip:hover{border-color:var(--accent-line);color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
 .xcard{margin-top:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
 .xcard > div{padding:18px 20px;min-width:0}
 .xcard > div + div{border-left:1px solid var(--rule)}
@@ -492,7 +492,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
 /* Handbook identity: a lab notebook on graph paper. Sometype Mono for titles and labels, Hanken Grotesk for reading,
    graphite ink on bone paper, one moss accent and one tracer orange for warnings. */
 :root{
-  --bg:#F4F2EC; --surface:#FBFAF6; --ink:#1C1D1A; --ink2:#4A4C45; --muted:#777A70; --rule:#D8D5CA; --faint:#EAE7DE;
+  --bg:#F4F2EC; --surface:#FBFAF6; --ink:#1C1D1A; --ink2:#4A4C45; --muted:#61645B; --rule:#D8D5CA; --faint:#EAE7DE;
   --accent:#4D6B1F; --accent-soft:rgba(77,107,31,.09); --accent-line:rgba(77,107,31,.38);
   --warn:#B4531A; --warn-soft:rgba(180,83,26,.09); --edge:rgba(28,29,26,.13);
   --grid:rgba(28,29,26,.055); --band:#EFECE3; --paper:#FBFAF6;
@@ -501,12 +501,12 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   --f-mono:"Sometype Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#141512; --surface:#1B1C18; --ink:#E7E6DF; --ink2:#B4B4AA; --muted:#868779; --rule:#2F302A; --faint:#212219;
+  --bg:#141512; --surface:#1B1C18; --ink:#E7E6DF; --ink2:#B4B4AA; --muted:#9A9B8E; --rule:#2F302A; --faint:#212219;
   --accent:#A9C46A; --accent-soft:rgba(169,196,106,.12); --accent-line:rgba(169,196,106,.45);
   --warn:#E08A52; --warn-soft:rgba(224,138,82,.12); --edge:rgba(231,230,223,.12);
   --grid:rgba(231,230,223,.05); --band:#181914; --paper:#1B1C18; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#141512; --surface:#1B1C18; --ink:#E7E6DF; --ink2:#B4B4AA; --muted:#868779; --rule:#2F302A; --faint:#212219;
+  --bg:#141512; --surface:#1B1C18; --ink:#E7E6DF; --ink2:#B4B4AA; --muted:#9A9B8E; --rule:#2F302A; --faint:#212219;
   --accent:#A9C46A; --accent-soft:rgba(169,196,106,.12); --accent-line:rgba(169,196,106,.45);
   --warn:#E08A52; --warn-soft:rgba(224,138,82,.12); --edge:rgba(231,230,223,.12);
   --grid:rgba(231,230,223,.05); --band:#181914; --paper:#1B1C18; color-scheme:dark}
@@ -849,7 +849,7 @@ window.__paw = {phiOf, edgeSet, getDi: () => di};
 
 /* source-layer bar chart */
 (function(){
-  const s=$('#srcbar'), W=440, Hh=230, ml=40, mr=8, mt=12, mb=30, vals=D.srcMean, max=180;
+  const s=$('#srcbar'), W=440, Hh=240, ml=40, mr=8, mt=12, mb=36, vals=D.srcMean, max=180;
   const x=i=>ml+i*(W-ml-mr)/vals.length, bw=(W-ml-mr)/vals.length-6, y=v=>mt+(Hh-mt-mb)*(1-v/max);
   [0,60,120,180].forEach(t=>{ el('line',{x1:ml,x2:W-mr,y1:y(t),y2:y(t),stroke:'var(--faint)'},s); el('text',{x:ml-6,y:y(t)+3.5,'text-anchor':'end'},s).textContent=t; });
   vals.forEach((v,i)=>{ const h=Hh-mb-y(v); const r=el('path',{d:`M${x(i)+3},${Hh-mb} V${y(v)+Math.min(4,h)} q0,-4 4,-4 h${bw-8} q4,0 4,4 V${Hh-mb} z`,fill:i<2?'var(--accent)':'var(--muted)'},s);
@@ -858,18 +858,18 @@ window.__paw = {phiOf, edgeSet, getDi: () => di};
     el('text',{x:x(i)+3+bw/2,y:Hh-mb+14,'text-anchor':'middle'},s).textContent=i;
     if(i<2) el('text',{x:x(i)+3+bw/2,y:y(v)-6,'text-anchor':'middle',style:'fill:var(--ink)'},s).textContent=Math.round(v); });
   el('line',{x1:ml,x2:W-mr,y1:Hh-mb,y2:Hh-mb,stroke:'var(--muted)'},s);
-  el('text',{x:(W+ml)/2,y:Hh-2,'text-anchor':'middle'},s).textContent='source layer';
+  el('text',{x:(W+ml)/2,y:Hh-5,'text-anchor':'middle'},s).textContent='source layer';
 })();
 
 /* validation scatter (log EC vs finite effect) */
 (function(){
-  const s=$('#valsc'), W=440, Hh=230, ml=40, mr=12, mt=12, mb=30, V=D.val;
+  const s=$('#valsc'), W=440, Hh=240, ml=48, mr=12, mt=12, mb=36, V=D.val;
   const lx=v=>Math.log10(v), x=v=>ml+(lx(v)-1.5)/(4-1.5)*(W-ml-mr), y=v=>mt+(Hh-mt-mb)*(1-v/2.1);
   [0,.5,1,1.5,2].forEach(t=>{ el('line',{x1:ml,x2:W-mr,y1:y(t),y2:y(t),stroke:'var(--faint)'},s); el('text',{x:ml-6,y:y(t)+3.5,'text-anchor':'end'},s).textContent=t; });
   [100,1000,10000].forEach(t=>{ el('text',{x:x(t),y:Hh-mb+14,'text-anchor':'middle'},s).textContent=t>=1000?(t/1000)+'k':t; el('line',{x1:x(t),x2:x(t),y1:Hh-mb,y2:Hh-mb+4,stroke:'var(--muted)'},s); });
   el('line',{x1:ml,x2:W-mr,y1:Hh-mb,y2:Hh-mb,stroke:'var(--muted)'},s);
-  el('text',{x:(W+ml)/2,y:Hh-2,'text-anchor':'middle'},s).textContent='EC (log scale)';
-  el('text',{x:12,y:(mt+Hh-mb)/2,'text-anchor':'middle',transform:`rotate(-90 12 ${(mt+Hh-mb)/2})`},s).textContent='finite effect';
+  el('text',{x:(W+ml)/2,y:Hh-5,'text-anchor':'middle'},s).textContent='EC (log scale)';
+  el('text',{x:13,y:(mt+Hh-mb)/2,'text-anchor':'middle',transform:`rotate(-90 13 ${(mt+Hh-mb)/2})`},s).textContent='finite effect';
   V.edges.forEach((e,i)=>{ const top=i<10; const c=el('circle',{cx:x(V.ec[i]),cy:y(V.finite_effect[i]),r:5,fill:top?'var(--accent)':'var(--surface)',stroke:top?'var(--surface)':'var(--muted)','stroke-width':top?2:1.5},s);
     const hit=el('circle',{cx:x(V.ec[i]),cy:y(V.finite_effect[i]),r:11,fill:'transparent'},s);
     hit.addEventListener('mouseenter',ev=>showTip(`${e[0]} → ${e[1]}<br>EC ${V.ec[i].toFixed(0)}<br>finite effect ${V.finite_effect[i].toFixed(3)}<br>${top?'top-10 by EC':'random retained edge'}`,ev)); hit.addEventListener('mousemove',moveTip); hit.addEventListener('mouseleave',hideTip); });
