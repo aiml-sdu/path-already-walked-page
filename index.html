@@ -486,13 +486,14 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   .toc .links a{color:var(--ink2);text-decoration:none}
   .toc .links a:hover{color:var(--accent)}
 }
+.theme-tg{font:inherit;font-size:13px;border:1px solid currentColor;border-radius:3px;background:transparent;color:inherit;opacity:.75;padding:2px 9px;cursor:pointer;margin-left:14px}.theme-tg:hover{opacity:1}
 </style>
 </head>
 <body>
 <aside class="toc" aria-label="Contents">
   <a class="t" href="#top">A Path Already Walked</a>
   <nav aria-label="Contents"><ol><li><a href="#abstract">Abstract</a></li><li><a href="#defs">Definitions</a></li><li><a href="#parallel"><span>01</span> Analogy</a></li><li><a href="#contract"><span>02</span> Contract</a></li><li><a href="#map"><span>03</span> Primitives</a></li><li><a href="#translations"><span>04</span> Claims</a></li><li><a href="#nulls"><span>05</span> Nulls</a></li><li><a href="#proxy"><span>06</span> Edges</a></li><li><a href="#worked"><span>07</span> The test</a></li><li><a href="#limits"><span>08</span> Scope</a></li></ol></nav>
-  <div class="links"><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF ↗</a><a href="#cite">Cite this article</a></div>
+  <div class="links"><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF ↗</a><a href="#cite">Cite this article</a><button class="theme-tg" id="themeTg" type="button">Dark</button></div>
 </aside>
 <nav class="top" aria-label="Sections"><div class="in">
   <a class="brand" href="#top">A Path Already Walked</a>
@@ -505,7 +506,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   <p class="sub">On inheriting network-neuroscience tools for mechanistic interpretability</p>
   <p class="standfirst">Network neuroscience has spent two decades learning which graph statistics mislead and why. We argue that interpretability can borrow its tools once every graph claim declares the graph it is about, and we report a pre-registered test of our own proposal that failed.</p>
   <p class="byline">Phongsakon Mark Konrad, Toygar Tanyel, Serkan Ayvaz · University of Southern Denmark and Promake · Seoul, 2026</p>
-  <p class="plain-links"><a href="https://openreview.net/forum?id=dSfjkJB3bQ" target="_blank" rel="noopener">OpenReview ↗</a><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF</a><a href="https://github.com/aiml-sdu/path-already-walked" target="_blank" rel="noopener">Code ↗</a><span class="soon">arXiv · coming soon</span><a href="#cite">Cite this article</a></p>
+  <p class="plain-links"><a href="https://openreview.net/forum?id=dSfjkJB3bQ" target="_blank" rel="noopener">OpenReview ↗</a><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF</a><a href="index.md">Markdown</a><a href="https://github.com/aiml-sdu/path-already-walked" target="_blank" rel="noopener">Code ↗</a><span class="soon">arXiv · coming soon</span><a href="#cite">Cite this article</a></p>
 </header>
 
 <section class="hero-inst dark-band" id="instrument" aria-label="The pre-registered GPT-2 small graph">
@@ -872,6 +873,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div>Konrad, Tanyel and Ayvaz · ICML 2026 Workshop on Mechanistic Interpretability, Seoul.</div>
     <div>Every number on this page comes from the paper or from the pre-registered run's result files.</div>
   </div>
+  <div style="margin-top:6px">A project of the <a href="https://aiml-sdu.github.io" target="_blank" rel="noopener">Applied and Interpretable Machine Learning Research Group</a> at the University of Southern Denmark.</div>
 </footer>
 
 <div id="tip" role="tooltip"></div>
@@ -1347,6 +1349,14 @@ function seg(root, cb){ root.addEventListener('click', e=>{ const b=e.target.clo
     links.forEach(function(a,i){ a.classList.toggle('on', i===cur); }); }
   window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(update); } },{passive:true});
   update();
+})();
+</script>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('themeTg'),K='page-theme';
+try{var s=localStorage.getItem(K);if(s==='light'||s==='dark')r.setAttribute('data-theme',s);}catch(e){}
+function dark(){var t=r.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;}
+function lbl(){if(b){b.textContent=dark()?'Light':'Dark';b.setAttribute('aria-label',dark()?'Switch to light theme':'Switch to dark theme');}}
+lbl();if(b)b.addEventListener('click',function(){var n=dark()?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem(K,n);}catch(e){}lbl();window.dispatchEvent(new Event('resize'));});
 })();
 </script>
 </body>
