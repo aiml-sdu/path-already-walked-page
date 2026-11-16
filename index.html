@@ -7,7 +7,7 @@
 <title>A Path Already Walked</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap">
 <style>
 /* Layout: a single 720px reading column for prose; figures break out to 1040px. The page reads as a declared contract:
    mono field labels, a pre-registration seal, and verdicts stamped where the test ran. */
@@ -333,6 +333,81 @@ figcaption{max-width:var(--col);margin:14px auto 0;font-size:.9rem}
 
 footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-block:40px}
 .foot-in{max-width:calc(var(--col) + var(--gut) + 48px);margin-inline:auto;display:grid;gap:6px;font-size:.86rem;color:var(--muted)}
+
+/* ---- explorables. Figures stay light: hairline grids, thin data strokes, muted 12px labels, flat square controls,
+   and state changes that animate unless the reader asked for reduced motion. ---- */
+svg circle, svg rect, svg path, svg line{transition:opacity .25s ease, fill .25s ease, stroke .25s ease}
+@media (prefers-reduced-motion: reduce){svg circle, svg rect, svg path, svg line{transition:none}}
+.panel{box-shadow:none}
+.btn{border-radius:2px;font-size:.8rem}
+.seg button{font-size:.76rem}
+svg .tk{font:12px var(--f-mono);fill:var(--muted)}
+svg .lb{font:13px var(--f-body);fill:var(--ink)}
+.hint{font:500 .74rem var(--f-mono);letter-spacing:.04em;color:var(--muted);margin-top:10px}
+.prow{cursor:pointer;transition:background .2s}
+.prow:hover,.prow.on{background:var(--accent-soft)}
+.pnote{grid-column:1/-1;font-size:.94rem;color:var(--ink2);padding:10px 14px 14px;border-left:2px solid var(--accent);background:var(--accent-soft);margin-bottom:4px}
+/* build a contract */
+#cb{margin-top:clamp(28px,4vw,44px);border-top:1px solid var(--rule);padding-top:22px}
+.cb-head{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.cb-head > div:first-child{flex:1 1 320px;min-width:0}
+.cb-pre{display:flex;gap:8px;flex-wrap:wrap}
+.cb-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:820px){.cb-grid{grid-template-columns:1fr}}
+.cbf{border:0;margin:0 0 12px;padding:0}
+.cbf legend{font:500 .7rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;padding:0}
+.cbo{display:flex;flex-wrap:wrap;gap:6px}
+.cbo button{font:400 .84rem var(--f-body);color:var(--ink2);background:var(--surface);border:1px solid var(--rule);border-radius:2px;padding:6px 10px;cursor:pointer;text-align:left}
+.cbo button:hover{border-color:var(--accent-line);color:var(--ink)}
+.cbo button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.cb-out{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 72px);border:1px solid var(--rule);background:var(--surface);padding:18px 20px;border-radius:3px}
+.cb-score{display:flex;align-items:baseline;gap:10px;font-size:.9rem;color:var(--ink2)}
+.cb-score .n{font:600 2.6rem/1 var(--f-display);color:var(--ink)}
+.cb-verdict{margin-top:10px;padding:10px 12px;font-size:.92rem;border-left:3px solid}
+.cb-verdict.ok{border-color:var(--accent);background:var(--accent-soft)}
+.cb-verdict.no{border-color:var(--warn);background:var(--warn-soft)}
+.cb-probs{margin:12px 0 0;padding-left:1.1rem;font-size:.88rem;color:var(--ink2);display:grid;gap:6px}
+@media (max-width:820px){.cb-out{position:static}}
+/* translations ↔ verdicts */
+.tr-link{display:inline-block;margin-top:8px;font:500 .74rem var(--f-mono);color:var(--warn);text-decoration:none;border-bottom:1px dashed var(--warn)}
+.verdict{transition:background .25s}
+.verdict.hl{background:var(--warn-soft)}
+/* pre-registration walk */
+.walk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:start}
+.wsteps{display:flex;flex-direction:column;gap:clamp(24px,18vh,160px);padding-block:clamp(8px,8vh,80px)}
+.wstep{border-left:2px solid var(--rule);padding:4px 0 4px 18px;cursor:pointer;transition:border-color .25s, opacity .25s}
+.wcard.js ~ * , .js .wstep{opacity:1}
+.wstep .wn{font:600 .8rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.wstep p{margin:6px 0 0}
+.wstep.on{border-color:var(--warn)}
+.wstep.on .wn{color:var(--warn)}
+.wcard{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 84px);background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:16px 18px;font-size:.86rem}
+.wch{display:flex;justify-content:space-between;align-items:center;font:600 .78rem var(--f-mono);letter-spacing:.06em;color:var(--ink);border-bottom:1px dashed var(--rule);padding-bottom:10px;margin-bottom:6px}
+.wch .stamp{margin:0}
+.wrow{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;padding:6px 0;border-bottom:1px solid var(--faint)}
+.wrow > span:first-child{font:500 .7rem/1.7 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.wrow code{font-size:.78rem;word-break:break-all}
+.vfail{color:var(--warn);font-weight:600}
+.wcard.js .wrow{opacity:.38;transition:opacity .35s}
+.wcard.js .wrow.lit{opacity:1}
+.wcard.js .wch .stamp{opacity:0;transition:opacity .35s}
+.wcard.js[data-step="4"] .wch .stamp{opacity:1}
+@media (max-width:860px){.walk{grid-template-columns:1fr}.wcard{position:static;order:-1}.wsteps{gap:18px;padding:0}.wcard.js .wrow{opacity:1}.wcard.js .wch .stamp{opacity:1}}
+/* playground and threshold */
+.pg{padding:18px 20px}
+.pg-h{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:flex-start}
+.pg-h > div:first-child{flex:1 1 320px;min-width:0}
+.pg-b{display:flex;gap:8px}
+#phiHist{display:block;width:100%;height:auto;margin-top:10px}
+.narrowpanel{max-width:640px;margin-inline:auto;padding:16px 18px}
+.densw{display:grid;gap:4px;max-width:360px;margin:6px 0 4px}
+.densw label{font:500 .76rem var(--f-mono);color:var(--ink2)}
+.densw input{accent-color:var(--accent);width:100%}
+.densw .ticks{display:flex;justify-content:space-between;font:.72rem var(--f-mono);color:var(--muted)}
+.warnc{color:var(--warn)}
+.posthoc .two{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+@media (max-width:600px){.seg{flex-wrap:wrap}.seg button{flex:1 1 auto}}
 </style>
 </head>
 <body>
@@ -397,6 +472,7 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
         <div class="c">Sparse coding yields V1-like features</div><div class="m">→</div><div class="c">Sparse autoencoders<small>non-canonical, inconsistent across runs</small></div>
         <div class="c">Motifs, scored by z against a null</div><div class="m">→</div><div class="c">Circuits, found by patching<small>no population statistic, usually no null</small></div>
       </div>
+      <p class="hint">Tap a row for the detail from the paper.</p>
     </div>
   </div>
 </section>
@@ -421,6 +497,14 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
     </div>
     <figcaption><b>Figure 1</b>The contract as five stages. Select one to see what it asks for and what our GPT-2 small test declared there. Blue marks what the contract declares.</figcaption>
   </figure>
+  <div class="wide" id="cb">
+    <div class="cb-head">
+      <div><div class="label">Build a contract · illustration</div>
+      <p class="small" style="margin:6px 0 0">Choose each declaration. The checklist applies the paper's rules to your choices; it computes nothing about any model.</p></div>
+      <div class="cb-pre"><button class="btn" type="button" data-preset="gpt">Our GPT-2 contract</button><button class="btn" type="button" data-preset="loose">A loose graph claim</button></div>
+    </div>
+    <div class="cb-grid"><div class="cb-q"></div><div class="cb-out" aria-live="polite"></div></div>
+  </div>
 </section>
 
 <section id="map">
@@ -471,6 +555,7 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
       <table id="nulltab" aria-label="Which properties each null preserves"></table>
     </div>
     <p class="notbox" id="notbox"></p>
+    <p class="notbox"><button class="btn" id="tryNull" type="button">Run goal A's null on the real GPT-2 graph ↓</button></p>
   </div>
 </section>
 
@@ -488,8 +573,13 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
       <p>Writing the proxy down forces two declarations the contract asks for: signed or unsigned effects, and proxy or intervention. The statistics are then named too. A rich club is only meaningful against a degree-preserving null, so its coefficient is reported as a ratio to that null:</p>
       <div class="eq"><math display="block"><mrow><msub><mi>Φ</mi><mi>norm</mi></msub><mo>(</mo><mi>k</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>Φ</mi><mo>(</mo><mi>k</mi><mo>)</mo></mrow><mrow><msub><mi>Φ</mi><mi>rand</mi></msub><mo>(</mo><mi>k</mi><mo>)</mo></mrow></mfrac><mspace width="2em"/><mi>σ</mi><mo>=</mo><mfrac><mrow><mi>C</mi><mo>/</mo><msub><mi>C</mi><mi>rand</mi></msub></mrow><mrow><mi>L</mi><mo>/</mo><msub><mi>L</mi><mi>rand</mi></msub></mrow></mfrac></mrow></math></div>
       <p class="small">A Jacobian proxy is not a causal intervention. Pairwise probing scales with the product of the two component sets; vector-Jacobian or Jacobian-vector products can often reduce the number of derivative queries, depending on batching, block size and memory.</p>
+      <p>How close does the proxy come to an intervention? In the GPT-2 test we compared it with finite path patching on 20 edges: the 10 strongest by EC and 10 picked at random from the retained edges. Hover the points.</p>
     </div>
   </div>
+  <figure class="wide band" id="proxyfig">
+    <div class="panel narrowpanel"><div class="chart"><div class="ttl">EC against finite path patching, 20 edges</div><svg id="valsc" viewBox="0 0 440 230" role="img" aria-label="The ten strongest EC edges and ten random retained edges have similar finite patching effects."></svg></div></div>
+    <figcaption><b>Figure 3</b>The 10 strongest edges (EC ≈ 4–7 × 10³) and 10 random retained edges (EC ≈ 50–230) have similar finite effects. Spearman ρ = 0.38: the proxy ranks edges only weakly as patching does.</figcaption>
+  </figure>
 </section>
 
 <section id="worked" class="turn">
@@ -499,6 +589,28 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
       <h2>We pre-registered a test of our own proposal. Both predictions failed.</h2>
       <p>A contract is only worth something if you hold yourself to it. We took the two cheapest translations, rich-club ordering and modularity, and tested them on GPT-2 small with indirect-object-identification (IOI) prompts. Every contract choice and both failure criteria were written into a pre-registration and hashed before any statistic was computed. Each test used a one-sided α = 0.025, a Bonferroni correction over the two.</p>
       <p>The nodes are the 144 attention heads. The edges are the top 10% of the 9,504 admissible earlier-to-later head pairs by the Jacobian proxy, 950 edges in all. The null rewires the graph 1,000 times and keeps each head's in- and out-degree, the edge count of every layer pair, and layer order.</p>
+    </div>
+  </div>
+  <div class="wide walk" id="walk">
+    <div class="wsteps">
+      <div class="wstep"><span class="wn">1 · Declare</span><p>Before running anything, we wrote down every contract choice: the nodes, the edge measure, both prompt sets, the direction, the threshold, the null and the behavioural target.</p></div>
+      <div class="wstep"><span class="wn">2 · Seal</span><p>The pre-registration file was hashed with SHA-256. The hash was recorded before the run and checked again when the script launched, so the plan could not change after we saw any data.</p></div>
+      <div class="wstep"><span class="wn">3 · Run</span><p>Edges came from 300 IOI prompts with 16 random probes each. The null drew 1,000 rewirings; intervals used 1,000 bootstrap samples. The whole run took 545 seconds on an M3 Pro laptop.</p></div>
+      <div class="wstep"><span class="wn">4 · Test</span><p>Each prediction was tested one-sided at α = 0.025, a Bonferroni correction over the two, against failure criteria copied verbatim from Table 2.</p></div>
+      <div class="wstep"><span class="wn">5 · Verdict</span><p>Both predictions failed. The verdict cards below record the numbers.</p></div>
+    </div>
+    <div class="wcard" aria-label="The pre-registration, as a protocol card">
+      <div class="wch"><span>PREREG.md</span><span class="stamp" data-only="4">Fail · Fail</span></div>
+      <div class="wrow" data-s="0"><span>Nodes</span><span>144 attention heads of GPT-2 small</span></div>
+      <div class="wrow" data-s="0"><span>Edges</span><span>EC<sub>ab</sub>, direct-path block Jacobian, head output to head output</span></div>
+      <div class="wrow" data-s="0"><span>Prompts</span><span>300 IOI prompts, 15 templates; 300 disjoint held out</span></div>
+      <div class="wrow" data-s="0"><span>Threshold</span><span>top 10% of 9,504 pairs (950 edges); 5%, 20% report-only</span></div>
+      <div class="wrow" data-s="0"><span>Null</span><span>1,000 rewirings keeping degrees, layer-pair counts, layer order</span></div>
+      <div class="wrow" data-s="0"><span>Target</span><span>held-out logit difference; head importance by patching</span></div>
+      <div class="wrow" data-s="1"><span>SHA-256</span><span><code id="walk-sha"></code></span></div>
+      <div class="wrow" data-s="2"><span>Run</span><span>300 × 16 probes · 1,000 nulls · 1,000 bootstraps · 545 s</span></div>
+      <div class="wrow" data-s="3"><span>Tests</span><span>H1 rich club, H2 modularity · one-sided α = 0.025</span></div>
+      <div class="wrow" data-s="4"><span>Verdict</span><span class="vfail">H1 fail · H2 fail</span></div>
     </div>
   </div>
   <div class="wide" id="prompts">
@@ -522,7 +634,7 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
       <p>The rich club was exactly as rich as chance. Its normalised coefficient was 1.00, and its 25 heads shared one member with the 25 heads that matter most for the held-out logit difference. The communities in the graph did not line up with the seven known classes of IOI heads. As a check on the proxy itself, the gradient edges agreed only weakly with finite path patching on 20 edges.</p>
     </div>
   </div>
-  <div class="wide verdict-wrap">
+  <div class="wide verdict-wrap" id="walk-verdicts">
     <div class="panel">
       <div class="verdicts">
         <div class="verdict">
@@ -578,6 +690,15 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
     </div>
     <figcaption><b>Figure 2</b>The pre-registered graph. Columns are layers 0 to 11, rows are heads. Press Rewire to run the null on the real edges in your browser. At 10% density Φ does not move.</figcaption>
   </figure>
+  <div class="wide" id="playground">
+    <div class="panel pg">
+      <div class="pg-h"><div><div class="label">Null playground · live demonstration, not a result</div>
+        <p class="small" style="margin:6px 0 0">Runs the pre-registered swap procedure 50 times in your browser, on the real edges at the density chosen in Figure 2. The verdict comes from the stored run of 1,000 rewirings, marked by the lines.</p></div>
+        <div class="pg-b"><button class="btn primary" id="pgRun" type="button">Rewire 50 times</button><button class="btn" id="pgClear" type="button">Clear</button></div></div>
+      <svg id="phiHist" viewBox="0 0 640 170" role="img" aria-label="Rich-club coefficient of browser-run null graphs against the observed value and the stored null threshold"></svg>
+      <p class="readout" id="pgInfo"></p>
+    </div>
+  </div>
 
   <div class="entry">
     <div class="gut"><span class="tag warn">Post hoc</span><span class="tag">Not pre-registered</span></div>
@@ -593,8 +714,11 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
       <div class="two">
         <div class="chart"><div class="ttl">Mean EC by source layer</div><svg id="srcbar" viewBox="0 0 440 230" role="img" aria-label="Mean EC is 161 for layer 0 and 102 for layer 1, then between 5 and 8 for every later layer."></svg>
           <p class="small" style="margin-top:8px">The unnormalised Jacobian is dominated by the output scale of early heads, so <b>927 of the 950</b> retained edges leave layers 0 and 1, and all 25 club heads lie in layers 0, 1 and 3.</p></div>
-        <div class="chart"><div class="ttl">EC against finite path patching, 20 edges</div><svg id="valsc" viewBox="0 0 440 230" role="img" aria-label="The ten strongest EC edges and ten random retained edges have similar finite patching effects."></svg>
-          <p class="small" style="margin-top:8px">The 10 strongest edges (EC ≈ 4–7 × 10³) and 10 random retained edges (EC ≈ 50–230) have similar finite effects. The proxy ranks edges only weakly as patching does.</p></div>
+        <div class="chart"><div class="ttl">Move the threshold</div>
+          <div class="densw"><label for="densR">Edge density <b id="densLab">10%</b></label><input type="range" id="densR" min="0" max="2" step="1" value="1"><div class="ticks"><span>5%</span><span>10%</span><span>20%</span></div></div>
+          <svg id="densChart" viewBox="0 0 640 200" role="img" aria-label="Adjusted mutual information against the permutation threshold at 5, 10 and 20 percent density"></svg>
+          <p class="small" id="densOut" style="margin-top:8px"></p>
+          <p class="small">Bars: AMI between detected communities and the 7 labelled head classes. Dashed tick: the permutation 97.5th percentile. The slider also moves Figure 2.</p></div>
       </div>
       <h3 style="margin-top:22px">Threshold sensitivity</h3>
       <div class="scroll"><table class="sens" id="sens"></table></div>
@@ -620,15 +744,15 @@ footer{max-width:none;border-top:1px solid var(--rule);margin-top:96px;padding-b
   <div class="wide scope">
     <div class="sc"><div class="label">It shows</div>
       <ul>
-        <li>How much the edge construction and the null model decide. On GPT-2 small they left the test with no power.</li>
+        <li>How much the edge construction and the null model decide. On GPT-2 small they left the test with no power (<a href="#playground">try the null</a>).</li>
         <li>A contract and eight translations, each with a stated failure criterion, written so that others can run them.</li>
         <li>That a failed test can be reported in full: the pre-registration, the script and all results are available.</li>
       </ul></div>
     <div class="sc no"><div class="label">It does not show</div>
       <ul>
-        <li>That any translation holds or fails in general. One model, one task, one test.</li>
+        <li>That any translation holds or fails in general. One model, one task, one test (<a href="#walk">entry 07</a>).</li>
         <li>That neuroscience results transfer to transformers. Transformers are fully observable, discrete, engineered systems; brains are partly observable, continuous and biologically constrained.</li>
-        <li>That the Jacobian proxy is causal. It is a sensitivity measure, and dense attention can make some efficiency statistics trivial.</li>
+        <li>That the Jacobian proxy is causal. It is a sensitivity measure (<a href="#proxyfig">compare with patching</a>), and dense attention can make some efficiency statistics trivial.</li>
       </ul></div>
   </div>
   <div class="entry">
@@ -876,6 +1000,7 @@ $('#dens').addEventListener('click',e=>{ const b=e.target.closest('button'); if(
 $('#hl').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; [...$('#hl').children].forEach(x=>x.setAttribute('aria-pressed',x===b)); mode=b.dataset.h; drawEdges(cur); drawNodes(); legend(); });
 $('#rewire').onclick = rewireOnce; $('#reset').onclick = full;
 full();
+window.__paw = {phiOf, edgeSet, getDi: () => di};
 
 /* source-layer bar chart */
 (function(){
@@ -952,6 +1077,167 @@ $('#copybib').addEventListener('click', ()=>{ const t=$('#bib').textContent, b=$
   const done=()=>{ b.textContent='Copied'; setTimeout(()=>b.textContent='Copy',1500); };
   const sel=()=>{ const r=document.createRange(); r.selectNodeContents($('#bib')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected, press ⌘C'; setTimeout(()=>b.textContent='Copy',2500); };
   try { navigator.clipboard.writeText(t).then(done, sel); } catch(e){ sel(); } });
+})();
+</script>
+
+<script>
+/* Per-section explorables. Every number shown comes from the result files embedded above or from the paper text. */
+(function(){
+const D = JSON.parse(document.getElementById('data').textContent);
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;};
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const f2 = v => (v<0?'−':'')+Math.abs(v).toFixed(2);
+function seg(root, cb){ root.addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b||!root.contains(b)) return; [...root.querySelectorAll('button')].forEach(x=>x.setAttribute('aria-pressed', x===b)); cb(b); }); }
+
+/* 01 · parallels: tap a row for the detail from the paper */
+(function(){
+  const notes = [
+    'Both fields first had parts that could be named, visualised, ablated and counted.',
+    'Prefrontal-cortex cells can respond to mixtures of task variables; networks can represent more features than they have dimensions.',
+    'Overcomplete sparse bases produce V1-like features from natural images. For sparse autoencoders the known failure modes include non-canonical decompositions, inconsistent feature atlases, underspecified causal roles and fragile explanations.',
+    'A motif is a subgraph that recurs more often than in a null ensemble, scored by its z-score. Circuits are prompt-local subgraphs estimated with patching or attribution, and their discovery is increasingly automated.'];
+  const cells = $$('#parallel .par > .c, #parallel .par > .m');
+  for (let r=0; r<4; r++){
+    const row = cells.slice(r*3, r*3+3); const last = row[2];
+    const d = document.createElement('div'); d.className='pnote'; d.hidden = true; d.textContent = notes[r];
+    last.after(d);
+    row.forEach(c=>{ c.classList.add('prow'); c.tabIndex = c===row[0]?0:-1; c.setAttribute('role','button');
+      const go = ()=>{ const open = d.hidden; $$('#parallel .pnote').forEach(x=>x.hidden=true); $$('#parallel .prow').forEach(x=>x.classList.remove('on')); if(open){ d.hidden=false; row.forEach(x=>x.classList.add('on')); } };
+      c.addEventListener('click', go); c.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } }); });
+  }
+})();
+
+/* 02 · build a contract (illustration: a checklist of the paper's rules, no results) */
+(function(){
+  const box = $('#cb'); if(!box) return;
+  const Q = [
+    {k:'nodes', q:'Nodes', o:[['heads','Attention heads',1],['neurons','MLP neurons',1],['sae','SAE features',1],['none','Not stated',0]], why:{none:'A transformer induces many graphs; the claim must say which components are nodes.'}},
+    {k:'edges', q:'Edges', o:[['w','Weights (structural)',1],['corr','Activation correlation (functional)',1],['patch','Patching effect (effective, intervention)',1],['jac','Jacobian proxy (effective, sensitivity)',1]], why:{}},
+    {k:'sign', q:'Signed effects', o:[['raw','Use signed values as edges',0],['abs','Project to nonnegative strength',1],['split','Split into positive and negative graphs',1]], why:{raw:'Signed quantities must be projected or separated into positive and negative graphs.'}},
+    {k:'dir', q:'Direction', o:[['keep','Keep directed edges',1],['sym','Symmetrise without saying so',0],['symd','Symmetrise and declare it',1]], why:{sym:'Directed metrics must not be replaced silently by undirected ones.'}},
+    {k:'thr', q:'Threshold', o:[['none','No threshold',0],['dens','Declared density, matched across models',1]], why:{none:'Binary metrics need a threshold or density target, ideally matched across models.'}},
+    {k:'null', q:'Null model', o:[['none','No null',0],['rand','Uniform random graph',0],['arch','Keeps layer order, layer-pair density and degrees',1]], why:{none:'A statistic is only evidence against a null ensemble.', rand:'A null that ignores the architecture lets structure the architecture forces look like a finding.'}},
+    {k:'tgt', q:'Behavioural target', o:[['none','None',0],['held','Held-out behaviour, beyond component counts',1]], why:{none:'The claim must predict held-out behaviour beyond component counts, or it fails.'}}
+  ];
+  const gpt = {nodes:'heads',edges:'jac',sign:'abs',dir:'keep',thr:'dens',null:'arch',tgt:'held'};
+  const loose = {nodes:'heads',edges:'corr',sign:'raw',dir:'sym',thr:'none',null:'rand',tgt:'none'};
+  const st = Object.assign({}, gpt);
+  const qs = box.querySelector('.cb-q'), out = box.querySelector('.cb-out');
+  qs.innerHTML = Q.map(q=>`<fieldset class="cbf"><legend>${q.q}</legend><div class="cbo">${q.o.map(o=>`<button type="button" data-k="${q.k}" data-v="${o[0]}">${o[1]}</button>`).join('')}</div></fieldset>`).join('');
+  qs.addEventListener('click', e=>{ const b=e.target.closest('button[data-k]'); if(!b) return; st[b.dataset.k]=b.dataset.v; render(); });
+  box.querySelector('[data-preset="gpt"]').onclick = ()=>{ Object.assign(st,gpt); render(); };
+  box.querySelector('[data-preset="loose"]').onclick = ()=>{ Object.assign(st,loose); render(); };
+  function render(){
+    qs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', st[b.dataset.k]===b.dataset.v));
+    const probs = []; let ok = 0;
+    Q.forEach(q=>{ const o=q.o.find(o=>o[0]===st[q.k]); if(o[2]) ok++; else probs.push(`<li><b>${q.q}.</b> ${q.why[st[q.k]]}</li>`); });
+    const edge = st.edges==='jac' ? 'A Jacobian proxy is not a causal intervention; say so, and check it against patching.' : st.edges==='patch' ? 'Patching edges record finite interventions.' : st.edges==='corr' ? 'Activation correlation is functional, not effective, connectivity.' : 'Weights describe structural connectivity.';
+    const all = ok===Q.length;
+    out.innerHTML = `<div class="cb-score"><span class="n">${ok}</span><span>of ${Q.length} declarations meet the contract</span></div>
+      <div class="cb-verdict ${all?'ok':'no'}">${all ? 'Testable. A graph statistic computed under this contract can be compared with its null and with held-out behaviour, and it can fail.' : 'Not yet testable. The statistic could reflect these choices as much as the model.'}</div>
+      ${probs.length?`<ul class="cb-probs">${probs.join('')}</ul>`:''}
+      <p class="small" style="margin:10px 0 0">${edge}${all && st.edges==='jac' && st.nodes==='heads' ? ' This is the contract we pre-registered for GPT-2 small. Entry 07 shows how it fared.' : ''}</p>`;
+  }
+  render();
+})();
+
+/* 04 · translations ↔ GPT-2 verdicts */
+(function(){
+  const link = {'Rich-club ordering':[0,1], 'Modularity':[2]};
+  const vs = $$('.verdicts .verdict');
+  function decorate(){
+    $$('#trlist .trow.tested').forEach(r=>{
+      if (r.querySelector('.tr-link')) return;
+      const name = r.querySelector('.q').textContent, idx = link[name]; if(!idx) return;
+      const a = document.createElement('a'); a.href='#walk-verdicts'; a.className='tr-link';
+      a.textContent = idx.length>1 ? 'Result: Φnorm = 1.00 and 1 of 25 overlap ↓' : 'Result: AMI = −0.02 ↓';
+      r.querySelector('div').appendChild(a);
+      const on = v=>idx.forEach(i=>vs[i]&&vs[i].classList.toggle('hl',v));
+      r.addEventListener('mouseenter',()=>on(true)); r.addEventListener('mouseleave',()=>on(false));
+      a.addEventListener('click',()=>{ on(true); setTimeout(()=>on(false),1800); });
+    });
+  }
+  new MutationObserver(decorate).observe($('#trlist'),{childList:true}); decorate();
+})();
+
+/* 05 · send the reader to the playground */
+(function(){ const b=$('#tryNull'); if(b) b.onclick=()=>{ const d=$('#dens button[data-d="1"]'); if(d) d.click(); $('#playground').scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'}); }; })();
+
+/* 07 · pre-registration walk: steps light up the protocol card as they scroll past */
+(function(){
+  const steps = $$('#walk .wstep'), card = $('#walk .wcard'); if(!steps.length) return;
+  $('#walk-sha').textContent = D.sha.slice(0,16)+'…'+D.sha.slice(-8);
+  card.classList.add('js');
+  function set(i){ steps.forEach((s,k)=>s.classList.toggle('on',k===i)); card.dataset.step = i; $$('#walk .wrow').forEach(r=>r.classList.toggle('lit', (+r.dataset.s)<=i)); }
+  set(0);
+  if (!('IntersectionObserver' in window)) { set(steps.length-1); return; }
+  const io = new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting) set(steps.indexOf(e.target)); }); }, {rootMargin:'-45% 0px -45% 0px'});
+  steps.forEach(s=>io.observe(s));
+  $$('#walk .wstep').forEach((s,k)=>s.addEventListener('click',()=>set(k)));
+})();
+
+/* 07 · null playground: run the pre-registered swap procedure many times, in the browser */
+(function(){
+  const P = window.__paw; const svg = $('#phiHist'); if(!P||!svg) return;
+  const H=12, N=144;
+  function nullOnce(E){
+    const B=new Set(E.map(([a,b])=>a*N+b)), groups={};
+    E.forEach(e=>{ const k=Math.floor(e[0]/H)+'-'+Math.floor(e[1]/H); (groups[k]=groups[k]||[]).push(e.slice()); });
+    for (const g of Object.values(groups)){ if(g.length<2) continue;
+      for (let t=0;t<10*g.length;t++){ const i=Math.floor(Math.random()*g.length), j=Math.floor(Math.random()*g.length); if(i===j) continue;
+        const [a,b]=g[i],[c,d]=g[j]; if(b===d||a===c||B.has(a*N+d)||B.has(c*N+b)) continue;
+        B.delete(a*N+b); B.delete(c*N+d); B.add(a*N+d); B.add(c*N+b); g[i]=[a,d]; g[j]=[c,b]; } }
+    return Object.values(groups).flat();
+  }
+  const stored = [D.sens[0], D.main, D.sens[1]];
+  let runs = [], di = P.getDi();
+  function draw(){
+    svg.innerHTML=''; const W=640, Hh=170, ml=16, mr=16, mt=16, mb=34; svg.setAttribute('viewBox',`0 0 ${W} ${Hh}`);
+    const r = stored[di]; const lo = Math.min(r.phi, r.phi_null_mean) - 0.03, hi = Math.max(r.phi, r.phi_null_p975) + 0.03;
+    const x = v => ml + (v-lo)/(hi-lo)*(W-ml-mr);
+    el('line',{x1:ml,x2:W-mr,y1:Hh-mb,y2:Hh-mb,stroke:'var(--muted)'},svg);
+    for (let t=Math.ceil(lo*100)/100; t<=hi; t+=0.01){ const tx=el('text',{x:x(t),y:Hh-mb+16,'text-anchor':'middle',class:'tk'},svg); tx.textContent=t.toFixed(2); }
+    const bins={}; runs.forEach(v=>{ const k=v.toFixed(3); bins[k]=(bins[k]||0)+1; });
+    Object.entries(bins).forEach(([k,c])=>{ for(let i=0;i<c;i++) el('circle',{cx:x(+k),cy:Hh-mb-6-i*7,r:3,fill:'var(--muted)'},svg); });
+    const mk=(v,col,lab,dy)=>{ el('line',{x1:x(v),x2:x(v),y1:mt,y2:Hh-mb,stroke:col,'stroke-width':2,'stroke-dasharray':col==='var(--accent)'?'none':'4 3'},svg); const t=el('text',{x:x(v)+5,y:mt+dy,class:'tk',style:`fill:${col}`},svg); t.textContent=lab; };
+    mk(r.phi_null_p975,'var(--warn)',`stored null 97.5th pct ${r.phi_null_p975.toFixed(3)}`,26);
+    mk(r.phi,'var(--accent)',`observed Φ ${r.phi.toFixed(3)}`,10);
+    $('#pgInfo').innerHTML = runs.length ? `${runs.length} rewirings run here. ${new Set(runs.map(v=>v.toFixed(4))).size===1 ? 'Every one gave the same Φ as the observed graph.' : 'Their Φ values vary.'} The pre-registered verdict used the stored run of 1,000 rewirings: null mean ${r.phi_null_mean.toFixed(3)}, p = ${r.p_phi.toFixed(2)}.` : `Density ${['5%','10%','20%'][di]}. Stored run of 1,000 rewirings: null mean ${r.phi_null_mean.toFixed(3)}, 97.5th percentile ${r.phi_null_p975.toFixed(3)}, p = ${r.p_phi.toFixed(2)}.`;
+  }
+  $('#pgRun').onclick = ()=>{ const E=P.edgeSet(di); const n=50; let k=0;
+    const step=()=>{ for(let j=0;j<(reduce?n:5)&&k<n;j++,k++) runs.push(P.phiOf(nullOnce(E)).phi); draw(); if(k<n) requestAnimationFrame(step); }; step(); };
+  $('#pgClear').onclick = ()=>{ runs=[]; draw(); };
+  document.addEventListener('pawdensity', e=>{ di=e.detail; runs=[]; draw(); });
+  draw();
+})();
+
+/* 07 · density explorer tied to the stored sensitivity results and to Figure 2 */
+(function(){
+  const rng = $('#densR'); if(!rng) return;
+  const rows=[D.sens[0], D.main, D.sens[1]], lab=['5%','10%','20%'];
+  const svg=$('#densChart');
+  function draw(i){
+    svg.innerHTML=''; const W=640, Hh=200, ml=150, mr=70, mt=10; svg.setAttribute('viewBox',`0 0 ${W} ${Hh}`);
+    const x=v=>ml+(v+0.05)/0.35*(W-ml-mr);
+    [0,0.1,0.2,0.3].forEach(t=>{ el('line',{x1:x(t),x2:x(t),y1:mt,y2:Hh-24,stroke:'var(--faint)'},svg); const tx=el('text',{x:x(t),y:Hh-8,'text-anchor':'middle',class:'tk'},svg); tx.textContent=t.toFixed(1); });
+    el('line',{x1:x(0),x2:x(0),y1:mt,y2:Hh-24,stroke:'var(--muted)'},svg);
+    rows.forEach((r,k)=>{ const y=mt+12+k*54, on=k===i;
+      const t=el('text',{x:ml-12,y:y+14,'text-anchor':'end',class:'lb',style:`font-weight:${on?600:400};fill:${on?'var(--ink)':'var(--muted)'}`},svg); t.textContent=`${lab[k]} · ${r.n_edges} edges`;
+      el('rect',{x:Math.min(x(0),x(r.ami)),y,width:Math.abs(x(r.ami)-x(0)),height:20,rx:2,fill: r.ami>r.ami_perm_p975?'var(--warn)':'var(--accent)',opacity:on?1:.35},svg);
+      el('line',{x1:x(r.ami_perm_p975),x2:x(r.ami_perm_p975),y1:y-4,y2:y+24,stroke:'var(--ink)','stroke-width':2,'stroke-dasharray':'3 2',opacity:on?1:.4},svg);
+      const v=el('text',{x:Math.max(x(r.ami),x(0))+6,y:y+14,class:'tk',style:`fill:${on?'var(--ink)':'var(--muted)'}`},svg); v.textContent=`AMI ${f2(r.ami)}`;
+    });
+    const r=rows[i];
+    $('#densOut').innerHTML = `<b>${lab[i]} density${i===1?' (pre-registered)':' (report-only)'}.</b> AMI ${f2(r.ami)} against a permutation 97.5th percentile of ${r.ami_perm_p975.toFixed(3)}, p = ${r.p_ami.toFixed(2)}. Rich club: Φ<sub>norm</sub> ${r.phi_norm.toFixed(2)}, p = ${r.p_phi.toFixed(1)}; overlap ${r.overlap} of 25, p = ${r.p_overlap.toFixed(2)}. ` +
+      (i===2 ? '<span class="warnc">Modularity would pass here. The pre-registration fixed 10% as the test and lists 20% as report-only, so this does not count as support.</span>' : 'Both predictions fail.');
+    $('#densLab').textContent = lab[i];
+  }
+  rng.addEventListener('input', ()=>{ const i=+rng.value; draw(i); const b=$(`#dens button[data-d="${i}"]`); if(b && b.getAttribute('aria-pressed')!=='true') b.click(); });
+  $('#dens').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; const i=+b.dataset.d; rng.value=i; draw(i); document.dispatchEvent(new CustomEvent('pawdensity',{detail:i})); });
+  draw(1);
+})();
 })();
 </script>
 
