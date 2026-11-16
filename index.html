@@ -7,7 +7,7 @@
 <title>A Path Already Walked</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap">
 <style>
 /* Layout: a single 720px reading column for prose; figures break out to 1040px. The page reads as a declared contract:
    mono field labels, a pre-registration seal, and verdicts stamped where the test ran. */
@@ -408,63 +408,171 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
 .posthoc .two{grid-template-columns:repeat(2,minmax(0,1fr))}
 
 @media (max-width:600px){.seg{flex-wrap:wrap}.seg button{flex:1 1 auto}}
+
+/* ---- calm top, one dark instrument, chapter cards, definitions, contents rail ---- */
+:root{--bg:#FFFFFF;--f-title:"IBM Plex Serif", Georgia, serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0E1013}}
+:root[data-theme="dark"]{--bg:#0E1013}
+.top-h{padding-block:clamp(56px,9vw,112px) clamp(28px,4vw,44px)}
+.top-h .kicker{font:500 .74rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;display:block}
+.top-h h1{font:500 clamp(2.6rem,1.6rem + 4vw,4.4rem)/1.02 var(--f-title);letter-spacing:-.02em;margin:0 0 12px}
+.top-h .sub{font:italic 400 clamp(1.1rem,1rem + .5vw,1.35rem)/1.4 var(--f-title);color:var(--ink2);margin:0 0 26px;max-width:36ch}
+.standfirst{font:400 clamp(1.15rem,1.05rem + .4vw,1.32rem)/1.6 var(--f-title);color:var(--ink);margin:0 0 22px}
+.byline{font-size:.92rem;color:var(--ink2);margin:0 0 10px}
+.plain-links{display:flex;flex-wrap:wrap;gap:4px 0;font:500 .9rem var(--f-body);margin:0}
+.plain-links > *{white-space:nowrap}
+.plain-links > * + *::before{content:"·";color:var(--muted);margin:0 10px}
+.plain-links a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:4px}
+.plain-links a:hover{text-decoration-color:var(--accent);color:var(--accent)}
+.plain-links .soon{color:var(--muted)}
+/* dark instrument */
+.dark-band{--bg:#0E1013;--surface:#15181C;--ink:#E6E8EB;--ink2:#AFB5BD;--muted:#80878F;--rule:#2C3137;--faint:#1E2226;
+  --accent:#5E8FD6;--accent-soft:rgba(94,143,214,.14);--accent-line:rgba(94,143,214,.45);--warn:#D0704F;--warn-soft:rgba(208,112,79,.14);--edge:rgba(230,232,235,.10);
+  --c1:#3987e5;--c2:#d95926;--c3:#199e70;--c4:#c98500;--c5:#d55181;--c6:#e66767;--c7:#9085e9;
+  background:var(--bg);color:var(--ink);box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax);padding-block:clamp(28px,4vw,48px);color-scheme:dark}
+.hi-in{max-width:1180px;margin-inline:auto}
+.hi-h{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.hi-h .label{color:var(--ink2)}
+.hi-tip{font:500 .82rem var(--f-mono);color:var(--accent)}
+.dark-band .panel{background:transparent;border-color:var(--rule)}
+.hi-cap{max-width:var(--col);margin:16px auto 0;font-size:.9rem;line-height:1.55;color:var(--ink2)}
+/* chapter cards */
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:calc(var(--col) + var(--gut) + 48px);margin:clamp(28px,4vw,44px) auto 0}
+.ch{display:grid;grid-template-rows:auto auto auto auto;gap:4px;text-decoration:none;color:var(--ink);padding:12px 12px 14px;border:1px solid var(--rule);border-radius:3px;background:var(--surface);transition:border-color .2s, transform .2s}
+.ch:hover{border-color:var(--accent);transform:translateY(-2px)}
+@media (prefers-reduced-motion: reduce){.ch:hover{transform:none}}
+.ch .cn{font:600 .78rem var(--f-mono);color:var(--accent)}
+.ch .th{display:block;width:100%;height:auto;aspect-ratio:120/54;margin:4px 0 6px}
+.ch .thg{overflow:hidden;position:relative}
+.ch .thg svg{position:absolute;inset:0;width:100%;height:100%}
+.ch .ct{font:600 .98rem/1.2 var(--f-display)}
+.ch .cs{font-size:.8rem;color:var(--muted)}
+@media (max-width:760px){.chapters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.th .t-a{stroke:var(--accent);fill:none;stroke-width:1.6}
+.th .t-m{stroke:var(--muted);fill:none;stroke-width:1}
+.th .t-f{fill:var(--accent)}
+.th .t-w{fill:var(--warn)}
+.th .t-g{fill:var(--faint)}
+/* abstract and definitions */
+#abstract{padding-top:clamp(48px,7vw,80px)}
+.h-abs{margin-top:34px}
+#abstract h3{margin-top:28px;font-size:1.15rem}
+#defs{padding-top:clamp(40px,6vw,64px)}
+.defs{border-top:1px solid var(--ink);padding-top:14px}
+.defs .dh{font:600 1.1rem var(--f-display);margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.defs .dh span{font:500 .74rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.defs dl{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 28px}
+.defs dl > div{padding:10px 0;border-bottom:1px solid var(--faint)}
+.defs dt{display:flex;align-items:center;gap:10px;font:600 .92rem var(--f-display)}
+.defs dt svg{width:40px;height:24px;flex:none}
+.defs dd{margin:4px 0 0 50px;font-size:.92rem;color:var(--ink2);line-height:1.55}
+@media (max-width:640px){.defs dl{grid-template-columns:1fr}}
+.defs .dn{fill:var(--accent)} .defs .da{stroke:var(--ink);fill:none;stroke-width:1.6} .defs .db{fill:none;stroke:var(--ink2);stroke-width:1.4}
+.defs .dg{fill:var(--muted)} .defs .dl{stroke:var(--muted);stroke-width:1;fill:none} .defs .dr{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.4}
+/* contents rail */
+.toc{display:none}
+@media (min-width:1280px){
+  body{padding-left:calc(236px + 40px)}
+  nav.top{margin-left:calc(-1*(236px + 40px));padding-left:236px}
+  nav.top .in a:not(.brand){display:none}
+  .toc{display:flex;flex-direction:column;gap:20px;position:fixed;z-index:6;inset:0 auto 0 0;width:236px;padding:84px 24px 28px;background:var(--bg);border-right:1px solid var(--rule);overflow-y:auto}
+  .toc .t{font:500 1.1rem/1.2 var(--f-title);color:var(--ink);text-decoration:none}
+  .toc ol{list-style:none;margin:0;padding:0}
+  .toc ol a{display:flex;gap:10px;padding:5px 0 5px 12px;border-left:1px solid var(--rule);color:var(--muted);text-decoration:none;font:.86rem/1.35 var(--f-body)}
+  .toc ol a span{font:500 .74rem/1.6 var(--f-mono);color:var(--accent)}
+  .toc ol a:hover{color:var(--ink)}
+  .toc ol a.on{color:var(--ink);border-left:2px solid var(--accent);padding-left:11px;font-weight:500}
+  .toc .links{display:flex;flex-direction:column;gap:6px;font-size:.84rem}
+  .toc .links a{color:var(--ink2);text-decoration:none}
+  .toc .links a:hover{color:var(--accent)}
+}
 </style>
 </head>
 <body>
+<aside class="toc" aria-label="Contents">
+  <a class="t" href="#top">A Path Already Walked</a>
+  <nav aria-label="Contents"><ol><li><a href="#abstract">Abstract</a></li><li><a href="#defs">Definitions</a></li><li><a href="#parallel"><span>01</span> Analogy</a></li><li><a href="#contract"><span>02</span> Contract</a></li><li><a href="#map"><span>03</span> Primitives</a></li><li><a href="#translations"><span>04</span> Claims</a></li><li><a href="#nulls"><span>05</span> Nulls</a></li><li><a href="#proxy"><span>06</span> Edges</a></li><li><a href="#worked"><span>07</span> The test</a></li><li><a href="#limits"><span>08</span> Scope</a></li></ol></nav>
+  <div class="links"><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF ↗</a><a href="#cite">Cite this article</a></div>
+</aside>
 <nav class="top" aria-label="Sections"><div class="in">
-  <a class="brand" href="#top"><span class="mk">PAW</span> A Path Already Walked</a>
-  <a href="#parallel">01 Analogy</a><a href="#contract">02 Contract</a><a href="#map">03 Map</a><a href="#translations">04 Claims</a><a href="#nulls">05 Nulls</a><a href="#proxy">06 Edges</a><a href="#worked">07 Test</a><a href="#limits">08 Scope</a><a href="#cite">Cite</a>
+  <a class="brand" href="#top">A Path Already Walked</a>
+  <a href="#abstract">Abstract</a><a href="#contract">Contract</a><a href="#translations">Claims</a><a href="#nulls">Nulls</a><a href="#worked">The test</a><a href="#limits">Scope</a><a href="#cite">Cite</a>
 </div></nav>
 
-<header class="hero" id="top">
-  <div class="hero-in">
-    <div class="herotext">
-      <div class="kicker"><span>Position &amp; methodology</span><span>ICML 2026 · Mechanistic Interpretability Workshop</span><span>Seoul</span></div>
-      <h1>A Path Already Walked</h1>
-      <p class="sub">On inheriting network-neuroscience tools for mechanistic interpretability</p>
-      <div class="authors">
-        <div><div class="who">Phongsakon Mark Konrad</div><div class="aff">Centre for Industrial Software, University of Southern Denmark, Sønderborg</div></div>
-        <div><div class="who">Toygar Tanyel</div><div class="aff">Promake, Newark, DE, USA</div></div>
-        <div><div class="who">Serkan Ayvaz</div><div class="aff">Centre for Industrial Software, University of Southern Denmark, Sønderborg</div></div>
-      </div>
-      <div class="btns">
-        <a class="btn primary" href="https://openreview.net/forum?id=dSfjkJB3bQ" target="_blank" rel="noopener">OpenReview ↗</a>
-        <a class="btn" href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF ↗</a>
-        <a class="btn" href="https://github.com/aiml-sdu/path-already-walked" target="_blank" rel="noopener">Code ↗</a>
-        <span class="btn off" title="arXiv version in preparation">arXiv <small>coming soon</small></span>
-        <a class="btn" href="#cite">BibTeX</a>
-      </div>
-    </div>
-    <figure class="heroviz">
-      <div class="sheet">
-        <div class="sheet-h"><span>Fig. 0 · GPT-2 small, as declared</span><span class="stamp">Pre-registered</span></div>
-        <svg id="herog" viewBox="0 0 420 440" role="img" aria-label="The 950-edge graph over GPT-2 small's 144 heads; almost every edge leaves layers 0 and 1."></svg>
-      </div>
-      <figcaption>The graph our contract produced on GPT-2 small: 144 heads, 950 edges, 927 of them leaving layers 0 and 1. <a href="#worked">The test it failed ↓</a></figcaption>
-    </figure>
-  </div>
+<header class="top-h col" id="top">
+  <div class="kicker">ICML 2026 Workshop on Mechanistic Interpretability · Position and methodology</div>
+  <h1>A Path Already Walked</h1>
+  <p class="sub">On inheriting network-neuroscience tools for mechanistic interpretability</p>
+  <p class="standfirst">Network neuroscience has spent two decades learning which graph statistics mislead and why. We argue that interpretability can borrow its tools once every graph claim declares the graph it is about, and we report a pre-registered test of our own proposal that failed.</p>
+  <p class="byline">Phongsakon Mark Konrad, Toygar Tanyel, Serkan Ayvaz · University of Southern Denmark and Promake · Seoul, 2026</p>
+  <p class="plain-links"><a href="https://openreview.net/forum?id=dSfjkJB3bQ" target="_blank" rel="noopener">OpenReview ↗</a><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF</a><a href="https://github.com/aiml-sdu/path-already-walked" target="_blank" rel="noopener">Code ↗</a><span class="soon">arXiv · coming soon</span><a href="#cite">Cite this article</a></p>
 </header>
 
-<div class="col lead">
-  <p class="hook">Mechanistic interpretability keeps changing its unit of explanation. It began with single neurons, then moved to attention heads, circuits, superposition, dictionary features and attribution graphs. The newest units are graphs. A statistic computed on such a graph can reflect preprocessing choices as much as the model.</p>
-  <p class="hook">Network neuroscience met this problem about two decades ago. It built graph measures, null models and a record of how those measures mislead. We argue that interpretability can borrow those tools as methods, on one condition: a graph claim must say exactly which graph it is about before anyone computes anything on it.</p>
-  <div class="tldr">
-    <div class="label">TL;DR</div>
-    <p>Network neuroscience has two decades of graph measures, null models and known failure modes, and we argue that mechanistic interpretability can use them as methods. The price is a transformer graph contract: each graph claim declares its nodes, edges, prompt distribution, threshold, null model and behavioural target before any statistic is computed. We map twelve network-neuroscience primitives to transformer questions, define a Jacobian measure of how strongly one component drives another, and state eight testable translations, each with the result that would refute it. We then ran one pre-registered test of two translations on GPT-2 small, and both predictions failed. The reasons, found after the test, show how much the edge construction and the null model decide.</p>
+<section class="hero-inst dark-band" id="instrument" aria-label="The pre-registered GPT-2 small graph">
+  <div class="hi-in">
+    <div class="hi-h"><span class="label">GPT-2 small, as declared in the pre-registration</span><span class="hi-tip">Point at any head. Change the density, or rewire with the null.</span></div>
+    <div class="panel gx">
+      <div class="canvas"><svg id="graph" viewBox="0 0 640 430" role="img" aria-label="The thresholded effective-connectivity graph over GPT-2 small's 144 attention heads, arranged by layer. Most retained edges leave layers 0 and 1."></svg></div>
+      <div class="side">
+        <div class="ctl"><span class="label">Density</span>
+          <div class="seg" id="dens" role="group" aria-label="Edge density"><button data-d="0" aria-pressed="false">5%</button><button data-d="1" aria-pressed="true">10% · pre-reg.</button><button data-d="2" aria-pressed="false">20%</button></div></div>
+        <div class="ctl"><span class="label">Highlight</span>
+          <div class="seg" id="hl" role="group" aria-label="Highlight"><button data-h="club" aria-pressed="true">Club</button><button data-h="imp" aria-pressed="false">Important</button><button data-h="ioi" aria-pressed="false">IOI classes</button></div></div>
+        <div class="legend" id="legend"></div>
+        <div class="ctl"><span class="label">Null rewiring</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="rewire" style="padding:7px 12px">Rewire once</button><button class="btn" id="reset" style="padding:7px 12px">Observed</button></div>
+          <div class="phi"><span class="v num" id="phiv">0.21</span><span class="readout" id="phil">Φ of the observed graph</span></div>
+          <div class="readout" id="rwinfo">Swaps stay inside each layer pair and keep every head's in- and out-degree there, as pre-registered.</div>
+        </div>
+        <div class="readout" id="nodeinfo"><span class="k">Hover or tap a head for details.</span></div>
+      </div>
+    </div>
+    <p class="hi-cap">Each dot is one of the 144 attention heads, with layers 0 to 11 from left to right. Each line is one of the 950 strongest earlier-to-later edges by the Jacobian measure defined below. Rewiring runs the pre-registered null in your browser, and at 10% density the rich-club coefficient Φ stays at 0.21 however often you press it.</p>
   </div>
-  <details class="abstract" id="abstract"><summary>Paper abstract</summary>
-    <p>Mechanistic interpretability and network neuroscience both began by studying single parts, and both now ask how those parts are connected. Network neuroscience has spent two decades developing graph measures, null models, and known failure modes for this question. We argue that these tools can be adopted for transformers as methods, provided each graph claim first declares its nodes, edges, prompt distribution, null model, and behavioural target. We map network-neuroscience primitives to transformer questions, define a Jacobian measure of how strongly one component drives another, and state eight testable translations with explicit failure criteria. This is a position and methodology paper. Its one experiment, a pre-registered test of two translations on GPT-2 small, fails, and the reasons for the failure show how much the edge construction and the null model decide. We do not claim that neuroscience results transfer automatically.</p>
-  </details>
+</section>
+
+<div class="col chapters" aria-label="Chapters">
+  <a class="ch" href="#contract"><span class="cn">1</span><svg class="th" id="th1" viewBox="0 0 120 54" aria-hidden="true"></svg><span class="ct">The contract</span><span class="cs">Declare the graph first</span></a>
+  <a class="ch" href="#translations"><span class="cn">2</span><svg class="th" id="th2" viewBox="0 0 120 54" aria-hidden="true"></svg><span class="ct">Eight claims</span><span class="cs">Each with its refutation</span></a>
+  <a class="ch" href="#nulls"><span class="cn">3</span><svg class="th" id="th3" viewBox="0 0 120 54" aria-hidden="true"></svg><span class="ct">Choosing a null</span><span class="cs">What chance must keep</span></a>
+  <a class="ch" href="#worked"><span class="cn">4</span><span class="th thg"><svg id="herog" viewBox="0 0 420 440" role="img" aria-label="The 950-edge graph over GPT-2 small's 144 heads; almost every edge leaves layers 0 and 1."></svg></span><span class="ct">The test failed</span><span class="cs">And why it had to</span></a>
 </div>
+
+<section class="col" id="abstract">
+  <div class="tldr"><div class="label">TL;DR</div>
+    <p>Graph statistics computed on a transformer can reflect preprocessing choices as much as the model. We propose a transformer graph contract, a declaration of nodes, edges, prompts, threshold, null model and behavioural target that is fixed before any statistic is computed. We then map twelve network-neuroscience primitives to transformer questions and state eight translations, each with the result that would refute it. A pre-registered test of two of them on GPT-2 small failed, and the reasons show how much the edge measure and the null decide.</p>
+  </div>
+  <h2 class="h-abs">Abstract</h2>
+  <p>Mechanistic interpretability and network neuroscience both began with single parts, and both now ask how those parts connect. Network neuroscience has two decades of graph measures, null models and known failure modes for that question. We argue that transformers can inherit these tools as methods, and the paper makes three contributions.</p>
+  <p>First, we state a contract that every graph claim declares before any statistic is computed. It comes with a map from 12 network-neuroscience primitives to transformer questions and with a guide to the null model, the random ensemble of graphs that defines chance. Second, we define a Jacobian measure of how strongly one component drives another, and we state 8 testable translations, each with the result that would refute it. Finally, we ran one pre-registered test of 2 translations on GPT-2 small, and both predictions failed. The normalised rich-club coefficient was 1.00, and the agreement between detected communities and the 7 labelled classes of heads was −0.02.</p>
+  <p>We found the reasons for the failure only after the test, and they show how much the edge construction and the null model decide on their own. We do not claim that neuroscience results transfer automatically.</p>
+  <h3>What a bad outcome would have looked like</h3>
+  <p>Our pre-registration named the results that would refute each prediction. The rich club fails if its normalised coefficient sits at or below 1, or if its heads overlap the heads that matter for the task no more than chance would. Modularity fails if the detected communities match the labelled head classes no better than a permutation of the labels. Both failures occurred. A third problem, which we did not write down in advance, settled the rich-club test before any network property could. The edge measure placed almost every strong edge in the first two layers, and the null we chose could not move the statistic for such a club.</p>
+</section>
+
+<section class="col" id="defs">
+  <div class="defs">
+    <div class="dh">Some definitions <span>One graph, one claim</span></div>
+    <dl>
+      <div><dt><svg viewBox="0 0 40 24" aria-hidden="true"><circle cx="20" cy="12" r="6" class="dn"/></svg>Node</dt><dd>A component the claim is about. In our test every node is one attention head.</dd></div>
+      <div><dt><svg viewBox="0 0 40 24" aria-hidden="true"><circle cx="7" cy="12" r="4" class="dn"/><circle cx="33" cy="12" r="4" class="dn"/><path d="M12 12h14" class="da"/><path d="M24 8l5 4-5 4" class="da"/></svg>Edge</dt><dd>A nonnegative strength of influence from one node to another. Here it always runs from an earlier layer to a later one.</dd></div>
+      <div><dt><svg viewBox="0 0 40 24" aria-hidden="true"><rect x="6" y="5" width="12" height="14" class="db"/><rect x="22" y="5" width="12" height="14" class="db"/><path d="M18 12h4" class="da"/></svg>EC</dt><dd>Our effective-connectivity measure. It is the squared size of the Jacobian block from one head's output to another's, averaged over prompts, so it measures sensitivity and makes no intervention.</dd></div>
+      <div><dt><svg viewBox="0 0 40 24" aria-hidden="true"><g class="dg"><circle cx="6" cy="7" r="2"/><circle cx="12" cy="17" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="24" cy="17" r="2"/><circle cx="30" cy="7" r="2"/><circle cx="36" cy="17" r="2"/></g><path d="M6 7L12 17M18 7L24 17M30 7L36 17M12 17L18 7" class="dl"/></svg>Null model</dt><dd>A random ensemble of graphs that keeps chosen properties fixed. A statistic counts as a finding only if it falls outside what the ensemble produces.</dd></div>
+      <div><dt><svg viewBox="0 0 40 24" aria-hidden="true"><circle cx="20" cy="12" r="9" class="dr"/><circle cx="17" cy="10" r="2.5" class="dn"/><circle cx="23" cy="10" r="2.5" class="dn"/><circle cx="20" cy="15" r="2.5" class="dn"/></svg>Φ<sub>norm</sub></dt><dd>The rich-club coefficient divided by its value under the null. Values above 1 mean that the best-connected heads link to each other more often than chance.</dd></div>
+      <div><dt><svg viewBox="0 0 40 24" aria-hidden="true"><rect x="4" y="5" width="14" height="14" rx="2" class="db"/><rect x="22" y="5" width="14" height="14" rx="2" class="dr"/></svg>AMI</dt><dd>Adjusted mutual information, the agreement between two ways of grouping the same heads. It is 0 at chance and 1 for identical groupings.</dd></div>
+      <div><dt><svg viewBox="0 0 40 24" aria-hidden="true"><rect x="8" y="3" width="24" height="18" rx="2" class="db"/><path d="M12 9h12M12 13h10M12 17h8" class="dl"/></svg>Contract</dt><dd>The list of declarations, nodes, edges, prompts, threshold, null and target, that a graph claim fixes before any statistic is computed.</dd></div>
+    </dl>
+  </div>
+</section>
 
 <section id="parallel">
   <div class="entry">
     <div class="gut"><span class="no">01</span><span class="tag">Background</span></div>
     <div class="body">
       <h2>Interpretability is retracing neuroscience's route from parts to wiring</h2>
-      <p>Both fields started with parts that could be named, ablated and counted. Neuroscience had single cells, regions and lesion effects. Interpretability had neurons and attention heads.</p>
-      <p>Both then found units that respond to mixtures. Cells in prefrontal cortex mix task variables, and transformers represent more features than they have dimensions. Both reached for sparse coding, and sparse autoencoders now carry sparse coding's known problems: decompositions that are not canonical and feature atlases that change between runs.</p>
-      <p>Both now draw subgraphs. Neuroscience calls a recurring subgraph a motif and scores it against a null ensemble. Interpretability calls a prompt-local subgraph a circuit and finds it with patching or attribution. What network neuroscience adds is the habit of computing statistics over the whole population and comparing them with a null. The parallel is about method. We do not claim that transformers are brains.</p>
+      <p>Both fields started with parts that could be named, ablated and counted. Neuroscience had single cells, brain regions and lesion effects, and interpretability had neurons and attention heads.</p>
+      <p>Both then met units that respond to mixtures of things. Cells in prefrontal cortex mix task variables, and transformers represent more features than they have dimensions, which is called superposition. Both reached for sparse coding. Sparse autoencoders, the interpretability version, now carry sparse coding's known problems, among them decompositions that differ from run to run.</p>
+      <p>Both fields now draw subgraphs. Neuroscience calls a recurring subgraph a motif and scores it against a null ensemble, while interpretability calls a prompt-specific subgraph a circuit and finds it by patching activations. What neuroscience adds is the habit of computing statistics over all components and comparing them with a null. The parallel is one of method, and we do not claim that transformers are brains.</p>
       <div class="par" role="table" aria-label="Parallels between network neuroscience and mechanistic interpretability">
         <div class="hd" role="columnheader">Network neuroscience</div><div class="hd"></div><div class="hd" role="columnheader">Mechanistic interpretability</div>
         <div class="c">Single cells, regions, lesions</div><div class="m">→</div><div class="c">Neurons and attention heads</div>
@@ -482,9 +590,9 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div class="gut"><span class="no">02</span><span class="tag decl">Proposal</span></div>
     <div class="body">
       <h2>A graph claim should say which graph it is about</h2>
-      <p>A transformer induces many graphs. Nodes can be neurons, heads, SAE features or blocks. Edges can be weights, activation correlations, patching effects or Jacobians. Each choice of threshold, symmetrisation and prompt set can change the answer.</p>
-      <p>The <span class="d">transformer graph contract</span> fixes those choices before any statistic is computed. Signed effects are projected or split into positive and negative graphs. Directed measures are not quietly swapped for undirected ones. Binary measures get a threshold or a density target, matched across models. The null keeps the architecture: layer order, density and degree sequence.</p>
-      <p>The result then has to pass two checks. Its statistic s(G) must lie outside what the null produces, and it must predict held-out behaviour better than component counts alone. If either check fails, the claim fails.</p>
+      <p>One transformer induces many graphs. Nodes can be neurons, heads, SAE features or whole blocks, and edges can be weights, activation correlations, patching effects or Jacobians. Each choice of threshold, of symmetrisation and of prompt set can change the answer, and a paper that reports only the final statistic gives the reader no way to tell which of these choices produced it.</p>
+      <p>The <span class="d">transformer graph contract</span> fixes these choices before any statistic is computed. Signed effects are projected to a nonnegative strength or split into a positive and a negative graph. Directed measures are never quietly swapped for undirected ones, and binary measures get a threshold or a density target that is matched across models. The null keeps what the architecture forces, namely layer order, density and the degree of each node.</p>
+      <p>A result then has to pass two checks, since its statistic must lie outside what the null produces and it must predict held-out behaviour better than a simple count of components would. If either check fails, so does the claim.</p>
     </div>
   </div>
   <figure class="wide band">
@@ -500,7 +608,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   <div class="wide" id="cb">
     <div class="cb-head">
       <div><div class="label">Build a contract · illustration</div>
-      <p class="small" style="margin:6px 0 0">Choose each declaration. The checklist applies the paper's rules to your choices; it computes nothing about any model.</p></div>
+      <p class="small" style="margin:6px 0 0">Choose each declaration. The checklist applies the paper's rules to your choices, and it computes nothing about any model.</p></div>
       <div class="cb-pre"><button class="btn" type="button" data-preset="gpt">Our GPT-2 contract</button><button class="btn" type="button" data-preset="loose">A loose graph claim</button></div>
     </div>
     <div class="cb-grid"><div class="cb-q"></div><div class="cb-out" aria-live="polite"></div></div>
@@ -512,7 +620,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div class="gut"><span class="no">03</span><span class="tag">Table 1</span></div>
     <div class="body">
       <h2>Every borrowed measure comes with a price of entry</h2>
-      <p>Small-world structure, rich clubs, modularity and controllability each answer a question someone could ask of a transformer. None of them means anything until the graph object, the projection to edges and the null are declared. Pick a primitive to see the question it asks and what it costs.</p>
+      <p>Small-world structure, rich clubs, modularity and controllability each answer a question one could ask of a transformer. None of them means anything until the graph, the projection to edges and the null are declared. Pick a primitive to see the question it asks and what it costs to ask it.</p>
     </div>
   </div>
   <div class="wide">
@@ -526,7 +634,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div class="gut"><span class="no">04</span><span class="tag">Table 2</span></div>
     <div class="body">
       <h2>Eight claims, each written down with the result that would refute it</h2>
-      <p>Each translation turns the analogy into a question a transformer can answer. Priority says how direct the analogy is, not how likely the claim is to hold. A translation that fails is still useful, because it marks where the analogy stops. We ran the two that were cheapest to test.</p>
+      <p>Each translation turns the analogy into a question that a transformer can answer. Priority records how direct the analogy is, and it says nothing about how likely the claim is to hold. A translation that fails still marks where the analogy stops. We ran the two that were cheapest to test, and hovering their rows lights up the verdicts in entry 07.</p>
     </div>
   </div>
   <div class="wide">
@@ -545,8 +653,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div class="gut"><span class="no">05</span><span class="tag">Table 3</span></div>
     <div class="body">
       <h2>A null model can only test what it does not already build in</h2>
-      <p>A null model is a random ensemble of graphs. It fixes what counts as chance. If the null lets layer order vary, a statistic that only reflects the architecture will look significant.</p>
-      <p>The rule is short. Keep every nuisance property that could produce the effect by construction, and randomise only the property under test. Choose a research goal to see what that means in practice.</p>
+      <p>If the null lets layer order vary, a statistic that only reflects the architecture will look significant. The rule is short. Keep every nuisance property that could produce the effect by construction, and randomise only the property under test. Choose a research goal to see what the rule asks for.</p>
     </div>
   </div>
   <div class="wide">
@@ -564,21 +671,20 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div class="gut"><span class="no">06</span><span class="tag">Definition</span></div>
     <div class="body">
       <h2>One way to measure how strongly a head drives another</h2>
-      <p>Effective connectivity, the directed influence of one unit on another, is where network neuroscience and patching-based circuit work meet. A patching edge records the effect of a finite intervention. Our proxy records infinitesimal sensitivity instead: the size of the Jacobian block between two components, squared and averaged over prompts. The two measures complement each other.</p>
+      <p>Effective connectivity, the directed influence of one unit on another, is where network neuroscience and patching-based circuit work meet. A patching edge records the effect of a finite intervention. Our proxy records infinitesimal sensitivity instead, and the two measures complement each other.</p>
       <div class="def">
         <span class="label">Definition 1 · Gradient effective-connectivity proxy</span>
         For upstream components 𝒜 and downstream components ℬ with declared intervention coordinates, let J<sub>ba</sub>(x) be the block Jacobian from 𝒜 to ℬ. Then
         <div class="eq"><math display="block"><mrow><msub><mi>EC</mi><mrow><mi>a</mi><mi>b</mi></mrow></msub><mo>(</mo><mi>𝒳</mi><mo>)</mo><mo>=</mo><msub><mi>𝔼</mi><mrow><mi>x</mi><mo>∼</mo><mi>𝒳</mi></mrow></msub><msubsup><mrow><mo>‖</mo><msub><mi>J</mi><mrow><mi>b</mi><mi>a</mi></mrow></msub><mo>(</mo><mi>x</mi><mo>)</mo><mo>‖</mo></mrow><mi>F</mi><mn>2</mn></msubsup></mrow></math></div>
       </div>
-      <p>Writing the proxy down forces two declarations the contract asks for: signed or unsigned effects, and proxy or intervention. The statistics are then named too. A rich club is only meaningful against a degree-preserving null, so its coefficient is reported as a ratio to that null:</p>
+      <p>Writing the proxy down forces two declarations that the contract asks for, signed or unsigned effects and proxy or intervention. A rich club is only meaningful against a degree-preserving null, so its coefficient is reported as a ratio to that null.</p>
       <div class="eq"><math display="block"><mrow><msub><mi>Φ</mi><mi>norm</mi></msub><mo>(</mo><mi>k</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>Φ</mi><mo>(</mo><mi>k</mi><mo>)</mo></mrow><mrow><msub><mi>Φ</mi><mi>rand</mi></msub><mo>(</mo><mi>k</mi><mo>)</mo></mrow></mfrac><mspace width="2em"/><mi>σ</mi><mo>=</mo><mfrac><mrow><mi>C</mi><mo>/</mo><msub><mi>C</mi><mi>rand</mi></msub></mrow><mrow><mi>L</mi><mo>/</mo><msub><mi>L</mi><mi>rand</mi></msub></mrow></mfrac></mrow></math></div>
-      <p class="small">A Jacobian proxy is not a causal intervention. Pairwise probing scales with the product of the two component sets; vector-Jacobian or Jacobian-vector products can often reduce the number of derivative queries, depending on batching, block size and memory.</p>
-      <p>How close does the proxy come to an intervention? In the GPT-2 test we compared it with finite path patching on 20 edges: the 10 strongest by EC and 10 picked at random from the retained edges. Hover the points.</p>
+      <p>How close does the proxy come to an intervention? We compared it with finite path patching on 20 edges, the 10 strongest by EC and 10 drawn at random from the retained edges. Pairwise probing grows with the product of the two component sets, and vector-Jacobian products can often cut the number of derivative queries.</p>
     </div>
   </div>
   <figure class="wide band" id="proxyfig">
     <div class="panel narrowpanel"><div class="chart"><div class="ttl">EC against finite path patching, 20 edges</div><svg id="valsc" viewBox="0 0 440 230" role="img" aria-label="The ten strongest EC edges and ten random retained edges have similar finite patching effects."></svg></div></div>
-    <figcaption><b>Figure 3</b>The 10 strongest edges (EC ≈ 4–7 × 10³) and 10 random retained edges (EC ≈ 50–230) have similar finite effects. Spearman ρ = 0.38: the proxy ranks edges only weakly as patching does.</figcaption>
+    <figcaption><b>Figure 3</b>The 10 strongest edges (EC ≈ 4–7 × 10³) and 10 random retained edges (EC ≈ 50–230) have similar finite effects. With a Spearman correlation of 0.38, the proxy ranks edges only weakly as patching does.</figcaption>
   </figure>
 </section>
 
@@ -587,16 +693,15 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div class="gut"><span class="no">07</span><span class="tag warn">Pre-registered</span></div>
     <div class="body">
       <h2>We pre-registered a test of our own proposal. Both predictions failed.</h2>
-      <p>A contract is only worth something if you hold yourself to it. We took the two cheapest translations, rich-club ordering and modularity, and tested them on GPT-2 small with indirect-object-identification (IOI) prompts. Every contract choice and both failure criteria were written into a pre-registration and hashed before any statistic was computed. Each test used a one-sided α = 0.025, a Bonferroni correction over the two.</p>
-      <p>The nodes are the 144 attention heads. The edges are the top 10% of the 9,504 admissible earlier-to-later head pairs by the Jacobian proxy, 950 edges in all. The null rewires the graph 1,000 times and keeps each head's in- and out-degree, the edge count of every layer pair, and layer order.</p>
+      <p>A contract is worth something only if its authors hold themselves to it. We took the two cheapest translations, rich-club ordering and modularity, and tested them on GPT-2 small with indirect-object identification prompts, sentences in which the model must name the person who received something. Scroll through the protocol to see what was fixed and when.</p>
     </div>
   </div>
   <div class="wide walk" id="walk">
     <div class="wsteps">
-      <div class="wstep"><span class="wn">1 · Declare</span><p>Before running anything, we wrote down every contract choice: the nodes, the edge measure, both prompt sets, the direction, the threshold, the null and the behavioural target.</p></div>
-      <div class="wstep"><span class="wn">2 · Seal</span><p>The pre-registration file was hashed with SHA-256. The hash was recorded before the run and checked again when the script launched, so the plan could not change after we saw any data.</p></div>
-      <div class="wstep"><span class="wn">3 · Run</span><p>Edges came from 300 IOI prompts with 16 random probes each. The null drew 1,000 rewirings; intervals used 1,000 bootstrap samples. The whole run took 545 seconds on an M3 Pro laptop.</p></div>
-      <div class="wstep"><span class="wn">4 · Test</span><p>Each prediction was tested one-sided at α = 0.025, a Bonferroni correction over the two, against failure criteria copied verbatim from Table 2.</p></div>
+      <div class="wstep"><span class="wn">1 · Declare</span><p>Before running anything we wrote down every contract choice. These were the nodes, the edge measure, both prompt sets, the direction of edges, the threshold, the null and the behavioural target.</p></div>
+      <div class="wstep"><span class="wn">2 · Seal</span><p>We hashed the pre-registration file with SHA-256, recorded the hash before the run and had the script check it again at launch, so the plan could not change after we saw any data.</p></div>
+      <div class="wstep"><span class="wn">3 · Run</span><p>Edges came from 300 prompts with 16 random probes each. The null drew 1,000 rewirings, the intervals used 1,000 bootstrap samples, and the whole run took 545 seconds on an M3 Pro laptop.</p></div>
+      <div class="wstep"><span class="wn">4 · Test</span><p>Each prediction was tested one-sided at α = 0.025, a Bonferroni correction over the two. The failure criteria were copied verbatim from Table 2.</p></div>
       <div class="wstep"><span class="wn">5 · Verdict</span><p>Both predictions failed. The verdict cards below record the numbers.</p></div>
     </div>
     <div class="wcard" aria-label="The pre-registration, as a protocol card">
@@ -617,7 +722,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
     <div class="panel">
       <div class="ioihead">
         <div><div class="label">The prompts · indirect-object identification</div>
-        <p class="small" style="margin:6px 0 0">15 templates, filled with names, places and objects that are single GPT-2 tokens. Half the prompts name the indirect object first (ABBA), half the subject first (BABA). The model should continue with the indirect object; the corrupted run replaces all three names with unrelated ones (ABC).</p></div>
+        <p class="small" style="margin:6px 0 0">15 templates, filled with names, places and objects that are single GPT-2 tokens. Half the prompts name the indirect object first (ABBA), half the subject first (BABA). The model should continue with the indirect object, and the corrupted run replaces all three names with unrelated ones (ABC).</p></div>
         <button class="btn" id="ioiDraw" type="button">Draw another</button>
       </div>
       <div class="ioiex">
@@ -626,12 +731,12 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
       </div>
       <details class="ioitpl"><summary>All 15 templates</summary><ol id="ioiList"></ol></details>
     </div>
-    <p class="small" style="margin-top:10px">Examples are drawn in your browser from the script's own templates and word lists, the same way the generator builds them; they are not the specific 600 prompts of the run (seeded, 300 for edges and 300 held out).</p>
+    <p class="small" style="margin-top:10px">Examples are drawn in your browser from the script's own templates and word lists, the same way the generator builds them. They are not the specific 600 prompts of the run, which were seeded, 300 for edges and 300 held out.</p>
   </div>
   <div class="entry">
     <div class="gut"></div>
     <div class="body">
-      <p>The rich club was exactly as rich as chance. Its normalised coefficient was 1.00, and its 25 heads shared one member with the 25 heads that matter most for the held-out logit difference. The communities in the graph did not line up with the seven known classes of IOI heads. As a check on the proxy itself, the gradient edges agreed only weakly with finite path patching on 20 edges.</p>
+      <p>The rich club was exactly as rich as chance, with a normalised coefficient of 1.00. Its 25 heads shared one member with the 25 heads that matter most for the held-out logit difference. The communities found in the graph did not line up with the seven known classes of IOI heads. As a check on the proxy itself, gradient edges agreed only weakly with path patching.</p>
     </div>
   </div>
   <div class="wide verdict-wrap" id="walk-verdicts">
@@ -671,42 +776,22 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
       </div>
     </div>
   </div>
-  <figure class="wide band">
-    <div class="panel gx">
-      <div class="canvas"><svg id="graph" viewBox="0 0 640 430" role="img" aria-label="The thresholded effective-connectivity graph over GPT-2 small's 144 attention heads, arranged by layer. Most retained edges leave layers 0 and 1."></svg></div>
-      <div class="side">
-        <div class="ctl"><span class="label">Density</span>
-          <div class="seg" id="dens" role="group" aria-label="Edge density"><button data-d="0" aria-pressed="false">5%</button><button data-d="1" aria-pressed="true">10% · pre-reg.</button><button data-d="2" aria-pressed="false">20%</button></div></div>
-        <div class="ctl"><span class="label">Highlight</span>
-          <div class="seg" id="hl" role="group" aria-label="Highlight"><button data-h="club" aria-pressed="true">Club</button><button data-h="imp" aria-pressed="false">Important</button><button data-h="ioi" aria-pressed="false">IOI classes</button></div></div>
-        <div class="legend" id="legend"></div>
-        <div class="ctl"><span class="label">Null rewiring</span>
-          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="rewire" style="padding:7px 12px">Rewire once</button><button class="btn" id="reset" style="padding:7px 12px">Observed</button></div>
-          <div class="phi"><span class="v num" id="phiv">0.21</span><span class="readout" id="phil">Φ of the observed graph</span></div>
-          <div class="readout" id="rwinfo">Swaps stay inside each layer pair and keep every head's in- and out-degree there, as pre-registered.</div>
-        </div>
-        <div class="readout" id="nodeinfo"><span class="k">Hover or tap a head for details.</span></div>
-      </div>
-    </div>
-    <figcaption><b>Figure 2</b>The pre-registered graph. Columns are layers 0 to 11, rows are heads. Press Rewire to run the null on the real edges in your browser. At 10% density Φ does not move.</figcaption>
-  </figure>
   <div class="wide" id="playground">
     <div class="panel pg">
       <div class="pg-h"><div><div class="label">Null playground · live demonstration, not a result</div>
-        <p class="small" style="margin:6px 0 0">Runs the pre-registered swap procedure 50 times in your browser, on the real edges at the density chosen in Figure 2. The verdict comes from the stored run of 1,000 rewirings, marked by the lines.</p></div>
+        <p class="small" style="margin:6px 0 0">Runs the pre-registered swap procedure 50 times in your browser, on the real edges at the density chosen in the graph at the top. The verdict comes from the stored run of 1,000 rewirings, marked by the lines.</p></div>
         <div class="pg-b"><button class="btn primary" id="pgRun" type="button">Rewire 50 times</button><button class="btn" id="pgClear" type="button">Clear</button></div></div>
       <svg id="phiHist" viewBox="0 0 640 170" role="img" aria-label="Rich-club coefficient of browser-run null graphs against the observed value and the stored null threshold"></svg>
       <p class="readout" id="pgInfo"></p>
     </div>
   </div>
-
   <div class="entry">
     <div class="gut"><span class="tag warn">Post hoc</span><span class="tag">Not pre-registered</span></div>
     <div class="body">
-      <h3 class="h3big">Why it failed: the edges measured scale, and the null had no room to move</h3>
-      <p>The reasons below were found after the test, so they are not part of it. They are the paper's warning in concrete form.</p>
-      <p>The raw Jacobian is dominated by the output scale of early heads. Mean EC is 161 for edges that leave layer 0 and 102 for layer 1, and between 5 and 8 for every later layer. So 927 of the 950 retained edges leave layers 0 and 1, and all 25 club heads sit in layers 0, 1 and 3. The "rich club" is a set of whole early layers.</p>
-      <p>That is where the null runs out of room. Our null keeps each head's degree inside every layer pair. For a club made of whole layers, this also fixes the number of edges inside the club. Every null graph reproduced the observed coefficient, and the test had no power. Try it in Figure 2: rewire as often as you like and Φ stays at 0.21.</p>
+      <h3 class="h3big">Why it failed. The edges measured scale, and the null had no room to move.</h3>
+      <p>We found the reasons below after the test, so they are not part of it. They are the paper's warning in concrete form.</p>
+      <p>The raw Jacobian is dominated by the output scale of early heads. Mean EC is 161 for edges that leave layer 0, 102 for layer 1, and between 5 and 8 for every later layer. So 927 of the 950 retained edges leave layers 0 and 1, all 25 club heads sit in layers 0, 1 and 3, and the club is a set of whole early layers.</p>
+      <p>That is where the null runs out of room. Our null keeps each head's degree inside every layer pair, which for a club made of whole layers also fixes the number of edges inside the club. Every null graph reproduced the observed coefficient, and the test had no power. Try it in the graph at the top of the page.</p>
     </div>
   </div>
   <div class="wide">
@@ -718,7 +803,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
           <div class="densw"><label for="densR">Edge density <b id="densLab">10%</b></label><input type="range" id="densR" min="0" max="2" step="1" value="1"><div class="ticks"><span>5%</span><span>10%</span><span>20%</span></div></div>
           <svg id="densChart" viewBox="0 0 640 200" role="img" aria-label="Adjusted mutual information against the permutation threshold at 5, 10 and 20 percent density"></svg>
           <p class="small" id="densOut" style="margin-top:8px"></p>
-          <p class="small">Bars: AMI between detected communities and the 7 labelled head classes. Dashed tick: the permutation 97.5th percentile. The slider also moves Figure 2.</p></div>
+          <p class="small">Bars show the AMI between detected communities and the 7 labelled head classes, and the dashed tick marks the permutation 97.5th percentile. The slider also moves the graph at the top.</p></div>
       </div>
       <h3 style="margin-top:22px">Threshold sensitivity</h3>
       <div class="scroll"><table class="sens" id="sens"></table></div>
@@ -727,8 +812,8 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   <div class="entry">
     <div class="gut"></div>
     <div class="body">
-      <p>Modularity, in turn, passes at 20% density (AMI 0.18, p = 0.02). The pre-registration lists 5% and 20% as report-only checks, so we do not count this as support. It is the threshold dependence the contract exists to expose.</p>
-      <p>The example shows one contract failing, not the translations. A next test would pre-register a scale-normalised edge and a null that keeps only the global degree sequence and layer order. That would be a new pre-registration, not a re-analysis of this one.</p>
+      <p>Modularity passes at 20% density (AMI 0.18, p = 0.02). The pre-registration lists 5% and 20% as report-only checks, so we do not count this as support. It is exactly the threshold dependence that the contract exists to expose.</p>
+      <p>The example shows one contract failing, and it says nothing yet about the translations themselves. A next test would pre-register a scale-normalised edge and a null that keeps only the global degree sequence and layer order. That would be a new pre-registration, with no re-analysis of this one.</p>
     </div>
   </div>
 </section>
@@ -746,20 +831,20 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
       <ul>
         <li>How much the edge construction and the null model decide. On GPT-2 small they left the test with no power (<a href="#playground">try the null</a>).</li>
         <li>A contract and eight translations, each with a stated failure criterion, written so that others can run them.</li>
-        <li>That a failed test can be reported in full: the pre-registration, the script and all results are available.</li>
+        <li>That a failed test can be reported in full, with the pre-registration, the script and all results available.</li>
       </ul></div>
     <div class="sc no"><div class="label">It does not show</div>
       <ul>
         <li>That any translation holds or fails in general. One model, one task, one test (<a href="#walk">entry 07</a>).</li>
-        <li>That neuroscience results transfer to transformers. Transformers are fully observable, discrete, engineered systems; brains are partly observable, continuous and biologically constrained.</li>
+        <li>That neuroscience results transfer to transformers. Transformers are fully observable, discrete and engineered, and brains are partly observable, continuous and biologically constrained.</li>
         <li>That the Jacobian proxy is causal. It is a sensitivity measure (<a href="#proxyfig">compare with patching</a>), and dense attention can make some efficiency statistics trivial.</li>
       </ul></div>
   </div>
   <div class="entry">
     <div class="gut"><span class="tag">Next</span></div>
     <div class="body">
-      <p>A positive result would need a scale-normalised edge, a null with enough freedom to move the statistic, and replication across models and tasks. Small-world scaling against density- and architecture-preserving nulls, and a comparison of patching-derived with activation-derived connectivity, remain untested.</p>
-      <p>The main risk is the number of degrees of freedom. Graph construction, thresholding, symmetrisation, prompt selection and null choice can each change the answer. A useful report shows threshold sensitivity, separates signed from unsigned effects, controls for density, and keeps discovery apart from validation. Without these controls the import adds vocabulary but no explanatory pressure.</p>
+      <p>A positive result would need a scale-normalised edge, a null with enough freedom to move the statistic, and replication across models and tasks. Small-world scaling against architecture-preserving nulls is still untested, and so is a comparison of connectivity from patching with connectivity from activations.</p>
+      <p>The main risk is the number of free choices. Graph construction, thresholding, symmetrisation, prompt selection and the null can each change the answer. A useful report shows threshold sensitivity, separates signed from unsigned effects, controls for density, and keeps discovery apart from validation. Without these controls the import adds vocabulary and no explanatory pressure.</p>
     </div>
   </div>
 </section>
@@ -768,7 +853,7 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   <div class="entry">
     <div class="gut"><span class="tag">Cite</span></div>
     <div class="body">
-      <h2>BibTeX</h2>
+      <h2>Cite this article</h2>
       <div class="bibwrap"><pre class="bib" id="bib">@inproceedings{konrad2026path,
   title     = {A Path Already Walked: On Inheriting Network-Neuroscience
                Tools for Mechanistic Interpretability},
@@ -777,14 +862,14 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   year      = {2026},
   url       = {https://openreview.net/forum?id=dSfjkJB3bQ}
 }</pre><button class="btn" id="copybib" type="button">Copy</button></div>
-      <p class="small" style="margin-top:14px">Code, pre-registration and all results: <a href="https://github.com/aiml-sdu/path-already-walked">github.com/aiml-sdu/path-already-walked</a>. An arXiv version is in preparation.</p>
+      <p class="small" style="margin-top:14px">Code, pre-registration and all results are at <a href="https://github.com/aiml-sdu/path-already-walked">github.com/aiml-sdu/path-already-walked</a>. An arXiv version is in preparation.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="foot-in">
-    <div>Konrad, Tanyel &amp; Ayvaz · ICML 2026 Workshop on Mechanistic Interpretability, Seoul.</div>
+    <div>Konrad, Tanyel and Ayvaz · ICML 2026 Workshop on Mechanistic Interpretability, Seoul.</div>
     <div>Every number on this page comes from the paper or from the pre-registered run's result files.</div>
   </div>
 </footer>
@@ -1143,6 +1228,17 @@ function seg(root, cb){ root.addEventListener('click', e=>{ const b=e.target.clo
   render();
 })();
 
+
+/* chapter cards: small live thumbnails drawn from the page's own content */
+(function(){
+  const t1=$('#th1'), t2=$('#th2'), t3=$('#th3');
+  if(t1){ for(let i=0;i<5;i++){ el('rect',{x:4+i*23,y:16,width:18,height:22,rx:2,class:i===1?'t-a':'t-m'},t1); if(i<4) el('line',{x1:22+i*23,x2:27+i*23,y1:27,y2:27,class:'t-m'},t1); }
+    const d=el('circle',{cx:13,cy:27,r:3,class:'t-f'},t1);
+    if(!reduce){ let k=0; setInterval(()=>{ k=(k+1)%5; d.setAttribute('cx',13+k*23); },900); } }
+  if(t2){ const tested=[1,2]; for(let i=0;i<8;i++){ el('rect',{x:6,y:4+i*6,width:[90,78,70,84,60,74,50,56][i],height:3.4,rx:1.5,class:tested.includes(i)?'t-w':'t-g'},t2); } }
+  if(t3){ const keep=[[0,1,2],[0,1,2,3,4],[5],[6]]; keep.forEach((k,r)=>{ for(let c=0;c<7;c++) el('circle',{cx:14+c*15,cy:9+r*12,r:3.4,class:k.includes(c)?'t-f':'t-g'},t3); }); }
+})();
+
 /* 04 · translations ↔ GPT-2 verdicts */
 (function(){
   const link = {'Rich-club ordering':[0,1], 'Modularity':[2]};
@@ -1241,5 +1337,17 @@ function seg(root, cb){ root.addEventListener('click', e=>{ const b=e.target.clo
 })();
 </script>
 
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc ol a'));
+  var secs=links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  var tick=false;
+  function update(){ tick=false; var line=window.innerHeight*0.3, cur=0;
+    for(var i=0;i<secs.length;i++){ if(secs[i] && secs[i].getBoundingClientRect().top<=line) cur=i; }
+    links.forEach(function(a,i){ a.classList.toggle('on', i===cur); }); }
+  window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(update); } },{passive:true});
+  update();
+})();
+</script>
 </body>
 </html>
