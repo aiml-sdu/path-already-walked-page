@@ -486,14 +486,15 @@ svg .lb{font:13px var(--f-body);fill:var(--ink)}
   .toc .links a{color:var(--ink2);text-decoration:none}
   .toc .links a:hover{color:var(--accent)}
 }
-.theme-tg{font:inherit;font-size:13px;border:1px solid currentColor;border-radius:3px;background:transparent;color:inherit;opacity:.75;padding:2px 9px;cursor:pointer;margin-left:14px}.theme-tg:hover{opacity:1}
+.theme-tg{position:fixed;right:14px;bottom:14px;z-index:60;font:500 13px/1 system-ui,sans-serif;border:1px solid var(--rule,var(--line,#8888));border-radius:3px;background:var(--bg);color:var(--ink);padding:7px 11px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.12)}.theme-tg:hover{border-color:var(--ink)}
 </style>
 </head>
 <body>
+<button class="theme-tg" id="themeTg" type="button">Dark</button>
 <aside class="toc" aria-label="Contents">
   <a class="t" href="#top">A Path Already Walked</a>
   <nav aria-label="Contents"><ol><li><a href="#abstract">Abstract</a></li><li><a href="#defs">Definitions</a></li><li><a href="#parallel"><span>01</span> Analogy</a></li><li><a href="#contract"><span>02</span> Contract</a></li><li><a href="#map"><span>03</span> Primitives</a></li><li><a href="#translations"><span>04</span> Claims</a></li><li><a href="#nulls"><span>05</span> Nulls</a></li><li><a href="#proxy"><span>06</span> Edges</a></li><li><a href="#worked"><span>07</span> The test</a></li><li><a href="#limits"><span>08</span> Scope</a></li></ol></nav>
-  <div class="links"><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF ↗</a><a href="#cite">Cite this article</a><button class="theme-tg" id="themeTg" type="button">Dark</button></div>
+  <div class="links"><a href="https://openreview.net/pdf?id=dSfjkJB3bQ" target="_blank" rel="noopener">PDF ↗</a><a href="#cite">Cite this article</a></div>
 </aside>
 <nav class="top" aria-label="Sections"><div class="in">
   <a class="brand" href="#top">A Path Already Walked</a>
