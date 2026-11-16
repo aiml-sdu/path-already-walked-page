@@ -1,20 +1,33 @@
 # A Path Already Walked
 
-> Markdown version of the project page at https://aiml-sdu.github.io/path-already-walked-page/. Interactive figures are on the web page. Every number here also appears there and comes from the paper or its stored results.
+> Markdown version of the handbook site at https://aiml-sdu.github.io/path-already-walked-page/, all six pages in order. Interactive figures are on the web pages. Every number here also appears there and comes from the paper or its stored results.
 
 On inheriting network-neuroscience tools for mechanistic interpretability
 
-Network neuroscience has spent two decades learning which graph statistics mislead and why. We argue that interpretability can borrow its tools once every graph claim declares the graph it is about, and we report a pre-registered test of our own proposal that failed.
+Network neuroscience has spent two decades learning which graph statistics mislead and why. Can interpretability borrow its tools? We argue that it can once every graph claim declares the graph it is about, and we report a pre-registered test of our own proposal that failed.
 
-Phongsakon Mark Konrad, Toygar Tanyel, Serkan Ayvaz · University of Southern Denmark and Promake · Seoul, 2026
+[OpenReview](https://openreview.net/forum?id=dSfjkJB3bQ) · [PDF](https://openreview.net/pdf?id=dSfjkJB3bQ) · [Markdown](index.md) · [Code](https://github.com/aiml-sdu/path-already-walked) · arXiv · coming soon · [Cite this article](cite.html)
 
-[OpenReview](https://openreview.net/forum?id=dSfjkJB3bQ) · [PDF](https://openreview.net/pdf?id=dSfjkJB3bQ) · [Markdown](index.md) · [Code](https://github.com/aiml-sdu/path-already-walked) · arXiv · coming soon · Cite this article
+*Figure.* The graph our test declared. GPT-2 small's 144 attention heads, layers 0 to 11 from left to right, and the 950 strongest edges by our Jacobian measure. Darker lines are stronger edges. Almost all of them leave the first two layers, which is the story of the worked example.
 
-Each dot is one of the 144 attention heads, with layers 0 to 11 from left to right. Each line is one of the 950 strongest earlier-to-later edges by the Jacobian measure defined below. Rewiring runs the pre-registered null in your browser, and at 10% density the rich-club coefficient Φ stays at 0.21 however often you press it.
+Phongsakon Mark Konrad (1), Toygar Tanyel (2), Serkan Ayvaz (1)
+
+(1) University of Southern Denmark, (2) Promake
+
+ICML 2026 Workshop on Mechanistic Interpretability, Seoul. Position and methodology paper.
+
+## The paper in four parts
+
+1. [The route](route.html). Interpretability is retracing neuroscience’s route from parts to wiring.
+2. [Tools](tools.html). Twelve borrowed measures, eight testable claims and the rule for choosing a null.
+3. [The graph contract](contract.html). What a graph claim declares before any statistic, and one way to measure an edge.
+4. [Worked example](worked.html). Our own pre-registered test on GPT-2 small, and why both predictions failed.
+
+### In short
 
 Graph statistics computed on a transformer can reflect preprocessing choices as much as the model. We propose a transformer graph contract, a declaration of nodes, edges, prompts, threshold, null model and behavioural target that is fixed before any statistic is computed. We then map twelve network-neuroscience primitives to transformer questions and state eight translations, each with the result that would refute it. A pre-registered test of two of them on GPT-2 small failed, and the reasons show how much the edge measure and the null decide.
 
-## Abstract
+## The short version
 
 Mechanistic interpretability and network neuroscience both began with single parts, and both now ask how those parts connect. Network neuroscience has two decades of graph measures, null models and known failure modes for that question. We argue that transformers can inherit these tools as methods, and the paper makes three contributions.
 
@@ -54,17 +67,44 @@ Contract
 
 The list of declarations, nodes, edges, prompts, threshold, null and target, that a graph claim fixes before any statistic is computed.
 
-## Interpretability is retracing neuroscience's route from parts to wiring
+## The route
+
+
+Interpretability is retracing neuroscience’s route from parts to wiring.
+
+### Interpretability is retracing neuroscience's route from parts to wiring
 
 Both fields started with parts that could be named, ablated and counted. Neuroscience had single cells, brain regions and lesion effects, and interpretability had neurons and attention heads.
 
 Both then met units that respond to mixtures of things. Cells in prefrontal cortex mix task variables, and transformers represent more features than they have dimensions, which is called superposition. Both reached for sparse coding. Sparse autoencoders, the interpretability version, now carry sparse coding's known problems, among them decompositions that differ from run to run.
 
-Both fields now draw subgraphs. Neuroscience calls a recurring subgraph a motif and scores it against a null ensemble, while interpretability calls a prompt-specific subgraph a circuit and finds it by patching activations. What neuroscience adds is the habit of computing statistics over all components and comparing them with a null. The parallel is one of method, and we do not claim that transformers are brains.
+Both fields now draw subgraphs. Neuroscience calls a recurring subgraph a motif and scores it against a null ensemble, while interpretability calls a prompt-specific subgraph a circuit and finds it by patching activations. Neuroscience adds the habit of computing statistics over all components and comparing them with a null. The parallel is one of method, and we do not claim that transformers are brains.
 
 Tap a row for the detail from the paper.
 
-## A graph claim should say which graph it is about
+## Tools
+
+
+Twelve borrowed measures, eight testable claims and the rule for choosing a null.
+
+### Every borrowed measure comes with a price of entry
+
+Small-world structure, rich clubs, modularity and controllability each answer a question one could ask of a transformer. None of them means anything until the graph, the projection to edges and the null are declared. Pick a primitive to see the question it asks and what it costs to ask it.
+
+### Eight claims, each written down with the result that would refute it
+
+Each translation turns the analogy into a question that a transformer can answer. Priority records how direct the analogy is, and it says nothing about how likely the claim is to hold. A translation that fails still marks where the analogy stops. We ran the two that were cheapest to test, and the [worked example](worked.html#worked) reports their verdicts.
+
+### A null model can only test what it does not already build in
+
+If the null lets layer order vary, a statistic that only reflects the architecture will look significant. The rule is short. Keep every nuisance property that could produce the effect by construction, and randomise only the property under test. Choose a research goal to see what the rule asks for.
+
+## The graph contract
+
+
+What a graph claim declares before any statistic, and one way to measure an edge.
+
+### A graph claim should say which graph it is about
 
 One transformer induces many graphs. Nodes can be neurons, heads, SAE features or whole blocks, and edges can be weights, activation correlations, patching effects or Jacobians. Each choice of threshold, of symmetrisation and of prompt set can change the answer, and a paper that reports only the final statistic gives the reader no way to tell which of these choices produced it.
 
@@ -76,19 +116,7 @@ A result then has to pass two checks, since its statistic must lie outside what 
 
 Choose each declaration. The checklist applies the paper's rules to your choices, and it computes nothing about any model.
 
-## Every borrowed measure comes with a price of entry
-
-Small-world structure, rich clubs, modularity and controllability each answer a question one could ask of a transformer. None of them means anything until the graph, the projection to edges and the null are declared. Pick a primitive to see the question it asks and what it costs to ask it.
-
-## Eight claims, each written down with the result that would refute it
-
-Each translation turns the analogy into a question that a transformer can answer. Priority records how direct the analogy is, and it says nothing about how likely the claim is to hold. A translation that fails still marks where the analogy stops. We ran the two that were cheapest to test, and hovering their rows lights up the verdicts in entry 07.
-
-## A null model can only test what it does not already build in
-
-If the null lets layer order vary, a statistic that only reflects the architecture will look significant. The rule is short. Keep every nuisance property that could produce the effect by construction, and randomise only the property under test. Choose a research goal to see what the rule asks for.
-
-## One way to measure how strongly a head drives another
+### One way to measure how strongly a head drives another
 
 Effective connectivity, the directed influence of one unit on another, is where network neuroscience and patching-based circuit work meet. A patching edge records the effect of a finite intervention. Our proxy records infinitesimal sensitivity instead, and the two measures complement each other.
 
@@ -98,7 +126,14 @@ How close does the proxy come to an intervention? We compared it with finite pat
 
 *Figure.* **Figure 3**The 10 strongest edges (EC ≈ 4–7 × 10³) and 10 random retained edges (EC ≈ 50–230) have similar finite effects. With a Spearman correlation of 0.38, the proxy ranks edges only weakly as patching does.
 
-## We pre-registered a test of our own proposal. Both predictions failed.
+## Worked example
+
+
+Our own pre-registered test on GPT-2 small, and why both predictions failed.
+
+Each dot is one of the 144 attention heads, with layers 0 to 11 from left to right. Each line is one of the 950 strongest earlier-to-later edges by the Jacobian measure defined in the graph contract. Rewiring runs the pre-registered null in your browser, and at 10% density the rich-club coefficient Φ stays at 0.21 however often you press it.
+
+### We pre-registered a test of our own proposal. Both predictions failed.
 
 A contract is worth something only if its authors hold themselves to it. We took the two cheapest translations, rich-club ordering and modularity, and tested them on GPT-2 small with indirect-object identification prompts, sentences in which the model must name the person who received something. Scroll through the protocol to see what was fixed and when.
 
@@ -120,7 +155,7 @@ The rich club was exactly as rich as chance, with a normalised coefficient of 1.
 
 Runs the pre-registered swap procedure 50 times in your browser, on the real edges at the density chosen in the graph at the top. The verdict comes from the stored run of 1,000 rewirings, marked by the lines.
 
-### Why it failed. The edges measured scale, and the null had no room to move.
+#### Why it failed. The edges measured scale, and the null had no room to move.
 
 We found the reasons below after the test, so they are not part of it. They are the paper's warning in concrete form.
 
@@ -132,13 +167,13 @@ The unnormalised Jacobian is dominated by the output scale of early heads, so **
 
 Bars show the AMI between detected communities and the 7 labelled head classes, and the dashed tick marks the permutation 97.5th percentile. The slider also moves the graph at the top.
 
-### Threshold sensitivity
+#### Threshold sensitivity
 
-Modularity passes at 20% density (AMI 0.18, p = 0.02). The pre-registration lists 5% and 20% as report-only checks, so we do not count this as support. It is exactly the threshold dependence that the contract exists to expose.
+Modularity passes at 20% density (AMI 0.18, p = 0.02). The pre-registration lists 5% and 20% as report-only checks, so we do not count this as support. The contract exists to expose exactly this threshold dependence.
 
 The example shows one contract failing, and it says nothing yet about the translations themselves. A next test would pre-register a scale-normalised edge and a null that keeps only the global degree sequence and layer order. That would be a new pre-registration, with no re-analysis of this one.
 
-## What this does and doesn't show
+### What this does and doesn't show
 
 This is a position and methodology paper with one experiment. The contracts and translations were tested once, on one small model and one task, and the test failed.
 
@@ -148,17 +183,20 @@ This is a position and methodology paper with one experiment. The contracts and 
 
 - That a failed test can be reported in full, with the pre-registration, the script and all results available.
 
-- That any translation holds or fails in general. One model, one task, one test (entry 07).
+- That any translation holds or fails in general. One model, one task, one test (the worked example).
 
 - That neuroscience results transfer to transformers. Transformers are fully observable, discrete and engineered, and brains are partly observable, continuous and biologically constrained.
 
-- That the Jacobian proxy is causal. It is a sensitivity measure (compare with patching), and dense attention can make some efficiency statistics trivial.
+- That the Jacobian proxy is causal. It is a sensitivity measure ([compare with patching](contract.html#proxyfig)), and dense attention can make some efficiency statistics trivial.
 
 A positive result would need a scale-normalised edge, a null with enough freedom to move the statistic, and replication across models and tasks. Small-world scaling against architecture-preserving nulls is still untested, and so is a comparison of connectivity from patching with connectivity from activations.
 
 The main risk is the number of free choices. Graph construction, thresholding, symmetrisation, prompt selection and the null can each change the answer. A useful report shows threshold sensitivity, separates signed from unsigned effects, controls for density, and keeps discovery apart from validation. Without these controls the import adds vocabulary and no explanatory pressure.
 
-## Cite this article
+## Cite
+
+
+### Cite this article
 
 ```bibtex
 @inproceedings{konrad2026path,
